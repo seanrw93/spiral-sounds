@@ -78,7 +78,7 @@ function renderCartItems(items, cartList) {
     li.innerHTML = `
       <div>
         <strong>${item.title}: </strong>
-        <button data-id="${item.cartItemId}" class="remove-btn">🗑️</button>
+        <button data-id="${item.cartitemid}" class="remove-btn">🗑️</button>
       </div>
       <span>× ${item.quantity} = $${itemTotal.toFixed(2)}</span>
     `
@@ -123,7 +123,6 @@ export async function removeAll(dom) {
 
     if (res.status === 204) {
       await loadCart(dom)
-    } else {
       console.error('Error clearing cart:', await res.text())
     }
   } catch (err) {

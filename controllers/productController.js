@@ -1,7 +1,6 @@
-import { getDBConnection } from "../db/db.js";
+import { pool } from "../db/db.js";
 
 export const getProducts = async (req, res) => {
-    const db = await getDBConnection();
 
     try {
         const { genre, search } = req.query;
@@ -9,32 +8,30 @@ export const getProducts = async (req, res) => {
         let params = [];
 
         if (genre) {
-            query += `WHERE genre = ?`;
+            query += `WHERE genre = $1`;
             params.push(genre);
         } else if (search) {
-            query += `WHERE artist LIKE ? OR title LIKE ? OR genre LIKE ?`;
+            query += `WHERE artist ILIKE $1 OR title ILIKE $2 OR genre ILIKE $3`;
             const searchPattern = `%${search}%`;
             params.push(searchPattern, searchPattern, searchPattern);
         }
 
-        const products = await db.all(query, params);
+        const products = await pool.query(query, params);
 
-        if (products.length === 0) {
+        if (products.rows.length === 0) {
             return res.status(404).json({ message: "No products found matching the criteria" });
         }
 
-        res.json( products );
+        res.json( products.rows );
     } catch (err) {
         res.status(500).json({error: err.message})
     }
 }
 
 export const getGenres = async (req, res) => {
-    const db = await getDBConnection();
-
     try {
-        const genreRows = await db.all(`SELECT DISTINCT genre FROM products`);
-        const mappedGenres = genreRows.map(row => row.genre);
+        const genreRows = await pool.query(`SELECT DISTINCT genre FROM products`);
+        const mappedGenres = genreRows.rows.map(row => row.genre);
         res.json(mappedGenres);
     } catch (err) {
         res.status(500).json({ error: err.message})

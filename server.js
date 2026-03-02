@@ -6,12 +6,13 @@ import { cartRouter } from "./routes/cart.js";
 import { requireAuth } from "./middleware/requireAuth.js";
 import session from "express-session";
 import dotenv from "dotenv";
+import crypto from "crypto";
 
 dotenv.config();
 
 const app = express();
 const PORT = 8000;
-const secret = process.env.SPIRAL_SECRET_SESSION || "peanut-butter-jellytime"
+const secret = process.env.SPIRAL_SECRET_SESSION || crypto.randomBytes(64).toString("hex");
 
 //Middleware START
 app.use(cors());
