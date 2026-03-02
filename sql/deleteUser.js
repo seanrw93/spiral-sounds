@@ -15,4 +15,7 @@ export const deleteUser = async (...usernames) => {
     }
 }
 
-deleteUser();
+deleteUser(
+    //Add username(s)
+    //user1, user2, user3
+);
