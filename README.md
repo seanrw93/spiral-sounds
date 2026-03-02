@@ -132,3 +132,16 @@ This project is licensed under the MIT License. See the LICENSE file for details
 ## Acknowledgments
 
 - Special thanks to all contributors and open-source libraries used in this project.
+
+## Future Enhancements
+
+Here are some potential features to consider adding to the project in the future:
+
+- **Payment System**: Integrate a secure payment gateway (e.g., Stripe, PayPal) to allow users to complete purchases directly on the platform.
+- **Order History**: Enable users to view their past orders and download invoices.
+- **Product Reviews**: Allow users to leave reviews and ratings for products.
+- **Admin Dashboard**: Create an admin interface for managing products, users, and orders.
+- **Wishlist Feature**: Let users save products to a wishlist for future purchases.
+- **Mobile Responsiveness**: Optimize the frontend for better usability on mobile devices.
+- **Notifications**: Add email or in-app notifications for order updates and promotions.
+- **Advanced Search**: Implement filters for price range, release year, and other product attributes.
