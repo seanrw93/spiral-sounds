@@ -22,6 +22,7 @@ Spiral Sounds is a web application designed for managing and browsing a music st
 spiral_sounds_v2/
 ├── controllers/       # Backend controllers for handling API requests
 │   ├── authControllers.js
+│   ├── cartController.js
 │   ├── meController.js
 │   └── productControllers.js
 ├── data/              # Static data or utility scripts
@@ -49,6 +50,7 @@ spiral_sounds_v2/
 │       └── signup.js
 ├── routes/            # Express routes
 │   ├── auth.js
+│   ├── cart.js
 │   └── products.js
 ├── sql/               # SQL scripts for database management
 │   ├── createTable.js
