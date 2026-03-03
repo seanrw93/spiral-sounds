@@ -16,7 +16,7 @@ const secret = process.env.SPIRAL_SECRET_SESSION || crypto.randomBytes(64).toStr
 
 //Middleware START
 app.use(cors({
-  origin: ['https://spiral-sounds-rho.vercel.app/'], 
+  origin: ['https://srw-spiral-sounds.netlify.app'], 
   credentials: true
 }));
 
@@ -29,10 +29,10 @@ app.use(session({
     saveUninitialized: false,
     cookie: {
         httpOnly: true,
-        secure: false,
-        sameSite: "lax"
+        secure: process.env.NODE_ENV === "production", 
+        sameSite: process.env.NODE_ENV === "production" ? "none" : "lax" 
     }
-}))
+}));
 
 app.use("/api/products", productsRouter);
 app.use("/api/auth", authRouter);

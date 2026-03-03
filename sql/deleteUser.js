@@ -1,7 +1,7 @@
 import { pool } from "../db/db.js";
 
 export const deleteUser = async (...usernames) => {
-    const client = pool.connect();
+    const client = await pool.connect();
 
     try {
         await client.query('BEGIN')
@@ -9,7 +9,7 @@ export const deleteUser = async (...usernames) => {
         for (const username of usernames) {
             await client.query('DELETE FROM users WHERE username = $1', [username]);
         }
-        console.log(`Deleted ${usernames.length} users`);
+        console.log(`Deleted ${usernames.length} user${usernames.length === 1 ? "" : "s"}`);
 
         await client.query('COMMIT')
     } catch (err) {
@@ -22,5 +22,5 @@ export const deleteUser = async (...usernames) => {
 
 deleteUser(
     //Add username(s)
-    //user1, user2, user3
+    //'user1', 'user2', 'user3'
 );

@@ -45,10 +45,15 @@ export const registerUser = async (req, res) => {
             }
         }
         
-        const insertQuery = `INSERT INTO users(name, email, username, password) VALUES ($1,$2,$3,$4)`;
+        const insertQuery = 
+            `
+                INSERT INTO users(name, email, username, password) 
+                VALUES ($1,$2,$3,$4) 
+                RETURNING id
+            `;
         const result = await pool.query(insertQuery, [name, email, username, hashed]);
 
-        req.session.userId = result.rows[0];
+        req.session.userId = result.rows[0].id;
 
         res.status(201).json({ message: "User registered successfully"});
     } catch (err) {
