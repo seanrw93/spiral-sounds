@@ -1,6 +1,14 @@
 import { pool } from "../db/db.js";
 
 export const getCurrentUser = async (req, res) => {
+
+    if (process.env.NODE_ENV = "production") {
+         //Prevent browser + CDN auth caching
+        res.set("Cache-Control", "no-store, no-cache, must-revalidate, proxy-revalidate");
+        res.set("Pragma", "no-cache");
+        res.set("Expires", "0");
+    }
+
     const { userId } = req.session;
 
     try {

@@ -23,6 +23,8 @@ app.use(cors({
 app.use(express.static("public"));
 app.use(express.json());
 
+process.env.NODE_ENV === "production" && app.set("trust proxy", 1)
+
 app.use(session({
     secret: secret,
     resave: false,
@@ -33,6 +35,10 @@ app.use(session({
         sameSite: process.env.NODE_ENV === "production" ? "none" : "lax" 
     }
 }));
+
+app.get("/debug-session", (req, res) => {
+  res.json(req.session);
+});
 
 app.use("/api/products", productsRouter);
 app.use("/api/auth", authRouter);

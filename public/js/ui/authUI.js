@@ -4,7 +4,7 @@ import { API_URL } from '../config/config.js';
 // ===== Check if user is signed in =====
 export async function checkAuth() {
   try {
-    const res = await fetch(API_URL + '/api/auth/me')
+    const res = await fetch(API_URL + '/api/auth/me', { credentials: "include" })
 
     if (!res.ok) {
       console.warn('Unexpected response:', res.status)
