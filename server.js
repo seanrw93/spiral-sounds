@@ -11,11 +11,15 @@ import crypto from "crypto";
 dotenv.config();
 
 const app = express();
-const PORT = 8000;
+const PORT = process.env.PORT || 8000;
 const secret = process.env.SPIRAL_SECRET_SESSION || crypto.randomBytes(64).toString("hex");
 
 //Middleware START
-app.use(cors());
+app.use(cors({
+  origin: ['https://spiral-sounds-rho.vercel.app/'], 
+  credentials: true
+}));
+
 app.use(express.static("public"));
 app.use(express.json());
 
@@ -32,7 +36,7 @@ app.use(session({
 
 app.use("/api/products", productsRouter);
 app.use("/api/auth", authRouter);
-app.use("/api/cart", requireAuth, cartRouter)
+app.use("/api/cart", requireAuth, cartRouter);
 
 app.use((req, res) => res.status(400).json({ error: "Invalid endpoint" }));
 //Middleware END
