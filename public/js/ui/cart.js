@@ -1,6 +1,6 @@
-import { logout } from './logout.js'
+import { logout } from '../auth/logout.js'
 import { checkAuth, renderGreeting, showHideMenuItems } from './authUI.js'
-import { loadCart, removeItem, removeAll } from './cartService.js'
+import { loadCart, removeItem, removeAll } from '../services/cartService.js'
 
 const dom = {
   checkoutBtn: document.getElementById('checkout-btn'),

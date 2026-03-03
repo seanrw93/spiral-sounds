@@ -1,7 +1,5 @@
-const API_URL = 
-  window.location.hostname === 'localhost'
-    ? ''
-    : import.meta.env.API_URL;
+import { API_URL } from '../config/config.js';
+
 
 // ===== Check if user is signed in =====
 export async function checkAuth() {

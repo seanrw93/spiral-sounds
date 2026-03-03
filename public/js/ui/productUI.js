@@ -1,5 +1,5 @@
-import { addBtnListeners } from './cartService.js'
-import { getProducts } from './productService.js'
+import { addBtnListeners } from '../services/cartService.js'
+import { getProducts } from '../services/productService.js'
 
 // ===== Rendering products =====
 

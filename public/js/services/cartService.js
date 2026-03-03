@@ -1,7 +1,5 @@
-const API_URL = 
-  window.location.hostname === 'localhost'
-    ? ''
-    : import.meta.env.API_URL;
+import { API_URL } from '../config/config.js';
+
 
 export function addBtnListeners() {
   document.querySelectorAll('.add-btn').forEach(button => {
