@@ -1,5 +1,6 @@
 import express from "express";
 import cors from "cors";
+import { healthRouter } from "./routes/health.js";
 import { productsRouter } from "./routes/products.js";
 import { authRouter } from "./routes/auth.js";
 import { cartRouter } from "./routes/cart.js";
@@ -40,6 +41,7 @@ app.get("/debug-session", (req, res) => {
   res.json(req.session);
 });
 
+app.use("/api/health", healthRouter);
 app.use("/api/products", productsRouter);
 app.use("/api/auth", authRouter);
 app.use("/api/cart", requireAuth, cartRouter);
