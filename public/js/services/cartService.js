@@ -1,5 +1,5 @@
 import { API_URL } from '../config/config.js';
-
+import { createSpinner, destroySpinner } from '../ui/spinner.js';
 
 export function addBtnListeners() {
   document.querySelectorAll('.add-btn').forEach(button => {
@@ -42,15 +42,19 @@ export async function updateCartIcon() {
 }
 
 export async function loadCart(dom) {
-  const { checkoutBtn, userMessage, cartList, cartTotal } = dom
-
+  const { checkoutBtn, userMessage, cartList, cartTotal } = dom;
+  const container = document.querySelector("#cart-list")
+  let spinner;
   try {
+    spinner = createSpinner(container)
     const items = await fetchCartItems(dom)
     renderCartItems(items, cartList)
     updateCartTotal(items, cartTotal, checkoutBtn)
   } catch (err) {
     console.error('Error loading cart:', err)
     cartList.innerHTML = '<li>Error loading cart data.</li>'
+  } finally {
+    destroySpinner(spinner);
   }
 }
 

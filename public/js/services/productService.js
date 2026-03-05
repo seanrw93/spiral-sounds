@@ -1,12 +1,23 @@
 import { API_URL } from '../config/config.js';
+import { createSpinner, destroySpinner} from "../ui/spinner.js"
 
 
 // ===== Fetching products =====
 
 export async function getProducts(filters = {}) {
   const queryParams = new URLSearchParams(filters);
-  const res = await fetch(`${API_URL}/api/products?${queryParams}`, { credentials: 'include' });
-  return await res.json();
+  const container = document.querySelector("#products-container");
+  let spinner;
+  
+  try {
+    spinner = createSpinner(container)
+    const res = await fetch(`${API_URL}/api/products?${queryParams}`, { credentials: 'include' });
+    return await res.json();
+  } catch (err) {
+    console.error('Error loading products:', err);
+  } finally {
+    destroySpinner(spinner);
+  }
 }
 
 // ===== Populate the genre dropdown =====

@@ -24,7 +24,7 @@ export const getProducts = async (req, res) => {
 
         res.json( products.rows );
     } catch (err) {
-        res.status(500).json({error: err.message})
+        res.status(500).json({ error: "Error loading products", details: err })
     }
 }
 
