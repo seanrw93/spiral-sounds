@@ -3,6 +3,7 @@ import { checkAuth, renderGreeting, showHideMenuItems } from './ui/authUI.js'
 import { getProducts, populateGenreSelect } from './services/productService.js'
 import { renderProducts, applySearchFilter } from './ui/productUI.js'
 import { updateCartIcon } from './services/cartService.js'
+import { debounce } from './utils/debouncer.js'
 
 document.getElementById('logout-btn').addEventListener('click', logout)
 
@@ -24,10 +25,11 @@ init()
 
 
 // ===== Event Listeners =====
+const debouncedSearch = debounce(applySearchFilter);
 
 document.getElementById('search-input').addEventListener('input', (e) => {
-  e.preventDefault()
-  applySearchFilter()
+  e.preventDefault();
+  debouncedSearch();
 })
 
 // prevent 'enter' from submitting
