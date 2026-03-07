@@ -37,4 +37,4 @@ Replace `<script_name>` with the name of the script you want to run.
 ## Notes
 
 - Ensure the database connection is properly configured in `db/db.js` before running these scripts.
-- These scripts are designed to work with the SQLite database used in this project.
+- These scripts are designed to work with the PostgreSQL database used in this project.

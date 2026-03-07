@@ -14,20 +14,23 @@ Spiral Sounds is a web application designed for managing and browsing a music st
 - **Product Management**: API endpoints to fetch products, filter by genre, and search by keywords.
 - **User Management**: API endpoints for user authentication and account management.
 - **Cart Management**: API endpoints to manage cart items for authenticated users.
-- **Database Integration**: SQLite database for storing products, users, and cart data.
+- **Database Integration**: PostgreSQL database for storing products, users, and cart data.
 
 ## Project Structure
 
 ```
 spiral_sounds_v2/
 ├── controllers/       # Backend controllers for handling API requests
-│   ├── authControllers.js
+│   ├── authController.js
+│   ├── cartController.js
 │   ├── meController.js
-│   └── productControllers.js
+│   └── productController.js
 ├── data/              # Static data or utility scripts
 │   └── data.js
 ├── db/                # Database connection and configuration
 │   └── db.js
+├── middleware/        # Express middleware
+│   └── requireAuth.js
 ├── public/            # Frontend files
 │   ├── cart.html
 │   ├── index.html
@@ -49,12 +52,14 @@ spiral_sounds_v2/
 │       └── signup.js
 ├── routes/            # Express routes
 │   ├── auth.js
+│   ├── cart.js
 │   └── products.js
 ├── sql/               # SQL scripts for database management
 │   ├── createTable.js
 │   ├── deleteUser.js
 │   ├── logTable.js
 │   └── seedTable.js
+├── .env.example       # Example environment variables
 ├── .gitignore         # Git ignore file
 ├── package.json       # Node.js dependencies and scripts
 ├── server.js          # Main server file
@@ -78,7 +83,15 @@ spiral_sounds_v2/
    npm install
    ```
 
-4. Set up the database:
+4. Set up environment variables:
+   - Copy the `.env.example` file to `.env`:
+     ```bash
+     cp .env.example .env
+     ```
+   - Fill in your PostgreSQL connection details and session secret in `.env`.
+
+5. Set up the database:
+   - Ensure your PostgreSQL server is running and the database exists.
    - Run the `createTable.js` script to initialize the database schema:
      ```bash
      node sql/createTable.js
@@ -88,12 +101,12 @@ spiral_sounds_v2/
      node sql/seedTable.js
      ```
 
-5. Start the server:
+6. Start the server:
    ```bash
    npm start
    ```
 
-6. Open the application in your browser at `http://localhost:3000`.
+7. Open the application in your browser at `http://localhost:8000`.
 
 ## Usage
 
@@ -106,7 +119,7 @@ spiral_sounds_v2/
 
 - **Frontend**: HTML, CSS, JavaScript
 - **Backend**: Node.js, Express.js
-- **Database**: SQLite
+- **Database**: PostgreSQL
 
 ## Contributing
 
