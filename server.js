@@ -4,6 +4,9 @@ import { healthRouter } from "./routes/health.js";
 import { productsRouter } from "./routes/products.js";
 import { authRouter } from "./routes/auth.js";
 import { cartRouter } from "./routes/cart.js";
+import { ordersRouter } from "./routes/orders.js";
+import { checkoutRouter } from "./routes/checkout.js";
+import { webhookRouter } from "./routes/webhook.js";
 import { requireAuth } from "./middleware/requireAuth.js";
 import session from "express-session";
 import dotenv from "dotenv";
@@ -22,7 +25,16 @@ app.use(cors({
 }));
 
 app.use(express.static("public"));
-app.use(express.json());
+
+app.use((req, res, next) => {
+  if (req.originalUrl === "/api/stripe/webhook") {
+    next();
+  } else {
+    express.json()(req, res, next);
+  }
+});
+
+app.use("/api/stripe", webhookRouter);
 
 process.env.NODE_ENV === "production" && app.set("trust proxy", 1)
 
@@ -37,14 +49,12 @@ app.use(session({
     }
 }));
 
-app.get("/debug-session", (req, res) => {
-  res.json(req.session);
-});
-
 app.use("/api/health", healthRouter);
 app.use("/api/products", productsRouter);
 app.use("/api/auth", authRouter);
 app.use("/api/cart", requireAuth, cartRouter);
+app.use("/api/orders", requireAuth, ordersRouter);
+app.use("/api/checkout", requireAuth, checkoutRouter);
 
 app.use((req, res) => res.status(400).json({ error: "Invalid endpoint" }));
 //Middleware END

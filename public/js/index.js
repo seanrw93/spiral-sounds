@@ -3,7 +3,7 @@ import { checkAuth, renderGreeting, showHideMenuItems } from './ui/authUI.js'
 import { getProducts, populateGenreSelect } from './services/productService.js'
 import { renderProducts, applySearchFilter } from './ui/productUI.js'
 import { updateCartIcon } from './services/cartService.js'
-import { debounce } from './utils/debouncer.js'
+import { debounce } from './debouncer.js'
 
 document.getElementById('logout-btn').addEventListener('click', logout)
 

@@ -6,19 +6,19 @@ export const seedTable = async () => {
     try {
         await client.query('BEGIN');
 
-        // for (const { artist, title, price, image, year, genre, stock } of vinyls) {
-        //     await client.query(
-        //         `
-        //             INSERT INTO PRODUCTS(artist, title, price, image, year, genre, stock)
-        //             VALUES ($1,$2,$3,$4,$5,$6,$7)
-        //         `, [artist, title, price, image, year, genre, stock]
-        //     )
-        // }
-
-        for (const { image, title } of vinyls) {
-            await client.query('UPDATE products SET image = $1 WHERE title = $2', [image, title])
-            console.table({ title, image})
+        for (const { artist, title, price, image, year, genre, stock } of vinyls) {
+            await client.query(
+                `
+                    INSERT INTO PRODUCTS(artist, title, price, image, year, genre, stock)
+                    VALUES ($1,$2,$3,$4,$5,$6,$7)
+                `, [artist, title, price, image, year, genre, stock]
+            )
         }
+
+        // for (const { image, title } of vinyls) {
+        //     await client.query('UPDATE products SET image = $1 WHERE title = $2', [image, title])
+        //     console.table({ title, image})
+        // }
 
         await client.query('COMMIT');
         // console.log('All records inserted successfully.')
