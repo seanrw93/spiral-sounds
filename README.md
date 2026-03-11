@@ -59,7 +59,6 @@ spiral_sounds/
 ┃ ┗ db.js
 ┣ middleware/
 ┃ ┗ requireAuth.js
-┣ node_modules/
 ┣ public/
 ┃ ┣ css/
 ┃ ┃ ┗ index.css
@@ -107,10 +106,8 @@ spiral_sounds/
 ┃ ┗ seedTable.js
 ┣ utils/
 ┃ ┗ orderNumber.js
-┣ .env
 ┣ .env.example
 ┣ .gitignore
-┣ database.db
 ┣ package-lock.json
 ┣ package.json
 ┣ README.md
@@ -245,7 +242,7 @@ Checkout flow:
 ## Checkout Endpoint
 
 ```
-POST /api/create-checkout-session
+POST /api/checkout/session
 ```
 
 Responsibilities:
@@ -299,7 +296,7 @@ Behavior:
 - Fetches order data from backend
 
 ```
-GET /api/orders/:id
+GET /api/orders/:orderid
 ```
 
 - Displays payment confirmation and order details
@@ -310,10 +307,13 @@ GET /api/orders/:id
 ## Environment Variables
 
 ```env
-DATABASE_URL=
+SPIRAL_SECRET_SESSION=
 STRIPE_SECRET_KEY=
 STRIPE_WEBHOOK_SECRET=
-SESSION_SECRET=
+DATABASE_URL=postgre://username:password@localhost:5432/db_name
+PORT=
+NODE_ENV="production"
+CLIENT_URL=
 ```
 
 ---
@@ -329,7 +329,7 @@ npm install
 Start backend server:
 
 ```bash
-npm run dev
+npm start
 ```
 
 The server will start on:
@@ -342,7 +342,7 @@ http://localhost:8000
 
 ## Future Improvements
 
-- React frontend
+- React frontend migration 
 - Admin product dashboard
 - Order history for users
 - Inventory management
