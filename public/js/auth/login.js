@@ -1,3 +1,6 @@
+import { API_URL } from '../config/config.js';
+import { createSpinner, destroySpinner} from '../ui/spinner.js'
+
 const signinForm = document.getElementById('signin-form')
 const errorMessage = document.getElementById('error-message')
 
@@ -12,7 +15,7 @@ signinForm.addEventListener('submit', async (e) => {
   submitBtn.disabled = true
 
   try {
-    const res = await fetch('api/auth/login', {
+    const res = await fetch(API_URL + '/api/auth/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

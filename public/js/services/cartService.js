@@ -1,10 +1,13 @@
+import { API_URL } from '../config/config.js';
+import { createSpinner, destroySpinner } from '../ui/spinner.js';
+
 export function addBtnListeners() {
   document.querySelectorAll('.add-btn').forEach(button => {
     button.addEventListener('click', async (event) => {
       const albumId = event.currentTarget.dataset.id
 
       try {
-        const res = await fetch('/api/cart/add', {
+        const res = await fetch(API_URL + '/api/cart/add', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           credentials: 'include',
@@ -25,7 +28,7 @@ export function addBtnListeners() {
 
 export async function updateCartIcon() {
   try {
-    const res = await fetch('/api/cart/cart-count')
+    const res = await fetch(API_URL + '/api/cart/cart-count', { credentials: 'include'})
     const obj = await res.json()
     const totalItems = obj.totalItems
 
@@ -39,20 +42,24 @@ export async function updateCartIcon() {
 }
 
 export async function loadCart(dom) {
-  const { checkoutBtn, userMessage, cartList, cartTotal } = dom
-
+  const { checkoutBtn, userMessage, cartList, cartTotal } = dom;
+  const container = document.querySelector("#cart-list")
+  let spinner;
   try {
+    spinner = createSpinner(container)
     const items = await fetchCartItems(dom)
     renderCartItems(items, cartList)
     updateCartTotal(items, cartTotal, checkoutBtn)
   } catch (err) {
     console.error('Error loading cart:', err)
     cartList.innerHTML = '<li>Error loading cart data.</li>'
+  } finally {
+    destroySpinner(spinner);
   }
 }
 
 async function fetchCartItems({ userMessage, checkoutBtn }) {
-  const res = await fetch('/api/cart/', { credentials: 'include' })
+  const res = await fetch(API_URL + '/api/cart/', { credentials: 'include' })
 
   if (!res.ok) {
     window.location.href="/"
@@ -78,7 +85,7 @@ function renderCartItems(items, cartList) {
     li.innerHTML = `
       <div>
         <strong>${item.title}: </strong>
-        <button data-id="${item.cartItemId}" class="remove-btn">🗑️</button>
+        <button data-id="${item.cartitemid}" class="remove-btn">🗑️</button>
       </div>
       <span>× ${item.quantity} = $${itemTotal.toFixed(2)}</span>
     `
@@ -99,7 +106,7 @@ function updateCartTotal(items, cartTotal, checkoutBtn) {
 
 export async function removeItem(itemId, dom) {
   try {
-    const res = await fetch(`/api/cart/${itemId}`, {
+    const res = await fetch(API_URL + `/api/cart/${itemId}`, {
       method: 'DELETE',
       credentials: 'include',
     })
@@ -116,14 +123,13 @@ export async function removeItem(itemId, dom) {
 
 export async function removeAll(dom) {
   try {
-    const res = await fetch(`/api/cart/all`, {
+    const res = await fetch(API_URL + `/api/cart/all`, {
       method: 'DELETE',
       credentials: 'include',
     })
 
     if (res.status === 204) {
       await loadCart(dom)
-    } else {
       console.error('Error clearing cart:', await res.text())
     }
   } catch (err) {

@@ -1,3 +1,7 @@
+
+import { API_URL } from '../config/config.js';
+
+
 const signupForm = document.getElementById('signup-form')
 const errorMessage = document.getElementById('error-message') 
 
@@ -14,13 +18,12 @@ signupForm.addEventListener('submit', async (e) => {
   submitBtn.disabled = true
 
   try {
-    const res = await fetch('api/auth/register', {
+    const res = await fetch(API_URL + '/api/auth/register', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
-      // credentials: 'include', 
-      // Ensure session is created
+      credentials: 'include', 
       body: JSON.stringify({ name, email, username, password })
     })
 

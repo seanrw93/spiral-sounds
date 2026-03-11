@@ -14,7 +14,7 @@ Spiral Sounds is a web application designed for managing and browsing a music st
 - **Product Management**: API endpoints to fetch products, filter by genre, and search by keywords.
 - **User Management**: API endpoints for user authentication and account management.
 - **Cart Management**: API endpoints to manage cart items for authenticated users.
-- **Database Integration**: SQLite database for storing products, users, and cart data.
+- **Database Integration**: PostgreSQL database for storing products, users, and cart data.
 
 ## Project Structure
 
@@ -22,6 +22,7 @@ Spiral Sounds is a web application designed for managing and browsing a music st
 spiral_sounds_v2/
 ├── controllers/       # Backend controllers for handling API requests
 │   ├── authControllers.js
+│   ├── cartController.js
 │   ├── meController.js
 │   └── productControllers.js
 ├── data/              # Static data or utility scripts
@@ -49,6 +50,7 @@ spiral_sounds_v2/
 │       └── signup.js
 ├── routes/            # Express routes
 │   ├── auth.js
+│   ├── cart.js
 │   └── products.js
 ├── sql/               # SQL scripts for database management
 │   ├── createTable.js
@@ -79,6 +81,8 @@ spiral_sounds_v2/
    ```
 
 4. Set up the database:
+   - Ensure PostgreSQL is installed and running.
+   - Update the database connection settings in `db/db.js`.
    - Run the `createTable.js` script to initialize the database schema:
      ```bash
      node sql/createTable.js
@@ -106,7 +110,7 @@ spiral_sounds_v2/
 
 - **Frontend**: HTML, CSS, JavaScript
 - **Backend**: Node.js, Express.js
-- **Database**: SQLite
+- **Database**: PostgreSQL
 
 ## Contributing
 
@@ -132,16 +136,3 @@ This project is licensed under the MIT License. See the LICENSE file for details
 ## Acknowledgments
 
 - Special thanks to all contributors and open-source libraries used in this project.
-
-## Future Enhancements
-
-Here are some potential features to consider adding to the project in the future:
-
-- **Payment System**: Integrate a secure payment gateway (e.g., Stripe, PayPal) to allow users to complete purchases directly on the platform.
-- **Order History**: Enable users to view their past orders and download invoices.
-- **Product Reviews**: Allow users to leave reviews and ratings for products.
-- **Admin Dashboard**: Create an admin interface for managing products, users, and orders.
-- **Wishlist Feature**: Let users save products to a wishlist for future purchases.
-- **Mobile Responsiveness**: Optimize the frontend for better usability on mobile devices.
-- **Notifications**: Add email or in-app notifications for order updates and promotions.
-- **Advanced Search**: Implement filters for price range, release year, and other product attributes.

@@ -1,21 +1,26 @@
-import { getDBConnection } from "../db/db.js";
+import { pool } from "../db/db.js";
 
 export const deleteUser = async (...usernames) => {
-    const db = await getDBConnection();
+    const client = await pool.connect();
 
     try {
+        await client.query('BEGIN')
+
         for (const username of usernames) {
-            await db.run('DELETE FROM users WHERE username = ?', [username]);
+            await client.query('DELETE FROM users WHERE username = $1', [username]);
         }
-        console.log(`Deleted ${usernames.length} users`)
+        console.log(`Deleted ${usernames.length} user${usernames.length === 1 ? "" : "s"}`);
+
+        await client.query('COMMIT')
     } catch (err) {
+        await client.query('ROLLBACK');
         console.log("Unable to delete user", err);
     } finally {
-        await db.close();
+        await client.release();
     }
 }
 
 deleteUser(
     //Add username(s)
-    //user1, user2, user3
+    //'user1', 'user2', 'user3'
 );
