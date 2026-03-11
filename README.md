@@ -1,138 +1,355 @@
 # Spiral Sounds
 
-Spiral Sounds is a web application designed for managing and browsing a music store. It allows users to view products, filter them by genre or search terms, and manage their shopping cart. The application also includes user authentication and database management features.
+Full-stack e-commerce application for purchasing vinyl records.
+
+The project implements a custom backend with secure authentication, cart management, Stripe payments, and PostgreSQL order storage.
+
+Originally built as a prototype using SQLite, the application has now been upgraded to a production-ready architecture using PostgreSQL and Stripe Checkout.
+
+---
+
+## Tech Stack
+
+**Frontend**
+- HTML
+- CSS
+- JavaScript
+
+**Backend**
+- Node.js
+- Express
+
+**Database**
+- PostgreSQL (Render)
+
+**Payments**
+- Stripe Checkout
+- Stripe Webhooks
+
+---
 
 ## Features
 
-### Frontend
-- **Product Display**: Users can browse a list of music albums with details such as title, artist, price, and genre.
-- **Search and Filter**: Users can search for products by keywords or filter them by genre.
-- **Cart Management**: Users can add products to their cart, view the cart, and manage quantities.
-- **User Authentication**: Login and signup functionality for secure access.
+- User authentication with sessions and HTTPOnly cookies
+- Shopping cart functionality
+- Product catalog
+- Secure Stripe Checkout integration
+- PostgreSQL order management
+- Webhook-based payment confirmation
+- Dynamic order success page
 
-### Backend
-- **Product Management**: API endpoints to fetch products, filter by genre, and search by keywords.
-- **User Management**: API endpoints for user authentication and account management.
-- **Cart Management**: API endpoints to manage cart items for authenticated users.
-- **Database Integration**: PostgreSQL database for storing products, users, and cart data.
+---
 
 ## Project Structure
 
 ```
-spiral_sounds_v2/
-├── controllers/       # Backend controllers for handling API requests
-│   ├── authControllers.js
-│   ├── cartController.js
-│   ├── meController.js
-│   └── productControllers.js
-├── data/              # Static data or utility scripts
-│   └── data.js
-├── db/                # Database connection and configuration
-│   └── db.js
-├── public/            # Frontend files
-│   ├── cart.html
-│   ├── index.html
-│   ├── login.html
-│   ├── signup.html
-│   ├── css/
-│   │   └── index.css
-│   ├── images/
-│   └── js/
-│       ├── authUI.js
-│       ├── cart.js
-│       ├── cartService.js
-│       ├── index.js
-│       ├── login.js
-│       ├── logout.js
-│       ├── menu.js
-│       ├── productService.js
-│       ├── productUI.js
-│       └── signup.js
-├── routes/            # Express routes
-│   ├── auth.js
-│   ├── cart.js
-│   └── products.js
-├── sql/               # SQL scripts for database management
-│   ├── createTable.js
-│   ├── deleteUser.js
-│   ├── logTable.js
-│   └── seedTable.js
-├── .gitignore         # Git ignore file
-├── package.json       # Node.js dependencies and scripts
-├── server.js          # Main server file
-└── README.md          # Project documentation
+spiral_sounds/
+┣ controllers/
+┃ ┣ authController.js
+┃ ┣ cartController.js
+┃ ┣ checkoutController.js
+┃ ┣ healthController.js
+┃ ┣ meController.js
+┃ ┣ ordersController.js
+┃ ┣ productController.js
+┃ ┗ webhookController.js
+┣ data/
+┃ ┗ data.js
+┣ db/
+┃ ┗ db.js
+┣ middleware/
+┃ ┗ requireAuth.js
+┣ node_modules/
+┣ public/
+┃ ┣ css/
+┃ ┃ ┗ index.css
+┃ ┣ images/
+┃ ┃ ┣ cart.png
+┃ ┃ ┗ menu.svg
+┃ ┣ js/
+┃ ┃ ┣ auth/
+┃ ┃ ┃ ┣ login.js
+┃ ┃ ┃ ┣ logout.js
+┃ ┃ ┃ ┗ signup.js
+┃ ┃ ┣ config/
+┃ ┃ ┃ ┗ config.js
+┃ ┃ ┣ services/
+┃ ┃ ┃ ┣ cartService.js
+┃ ┃ ┃ ┣ checkoutService.js
+┃ ┃ ┃ ┣ orderService.js
+┃ ┃ ┃ ┗ productService.js
+┃ ┃ ┣ ui/
+┃ ┃ ┃ ┣ authUI.js
+┃ ┃ ┃ ┣ cart.js
+┃ ┃ ┃ ┣ menu.js
+┃ ┃ ┃ ┣ orderUI.js
+┃ ┃ ┃ ┣ productUI.js
+┃ ┃ ┃ ┗ spinner.js
+┃ ┃ ┣ debouncer.js
+┃ ┃ ┗ index.js
+┃ ┣ cart.html
+┃ ┣ index.html
+┃ ┣ login.html
+┃ ┗ signup.html
+┣ routes/
+┃ ┣ auth.js
+┃ ┣ cart.js
+┃ ┣ checkout.js
+┃ ┣ health.js
+┃ ┣ orders.js
+┃ ┣ products.js
+┃ ┗ webhook.js
+┣ sql/
+┃ ┣ createTable.js
+┃ ┣ deleteUser.js
+┃ ┣ logTable.js
+┃ ┣ README.md
+┃ ┗ seedTable.js
+┣ utils/
+┃ ┗ orderNumber.js
+┣ .env
+┣ .env.example
+┣ .gitignore
+┣ database.db
+┣ package-lock.json
+┣ package.json
+┣ README.md
+┗ server.js
 ```
 
-## Installation
+---
 
-1. Clone the repository:
-   ```bash
-   git clone <repository-url>
-   ```
+## Database Migration
 
-2. Navigate to the project directory:
-   ```bash
-   cd spiral_sounds_v2
-   ```
+The project migrated from **SQLite** to **PostgreSQL** to support production deployment.
 
-3. Install dependencies:
-   ```bash
-   npm install
-   ```
+Reasons for migration:
 
-4. Set up the database:
-   - Ensure PostgreSQL is installed and running.
-   - Update the database connection settings in `db/db.js`.
-   - Run the `createTable.js` script to initialize the database schema:
-     ```bash
-     node sql/createTable.js
-     ```
-   - (Optional) Seed the database with initial data:
-     ```bash
-     node sql/seedTable.js
-     ```
+- Better concurrency
+- Production reliability
+- Render cloud compatibility
+- Reliable Stripe webhook processing
 
-5. Start the server:
-   ```bash
-   npm start
-   ```
+Database connection uses:
 
-6. Open the application in your browser at `http://localhost:3000`.
+```
+process.env.DATABASE_URL
+```
 
-## Usage
+SSL is enabled for Render PostgreSQL.
 
-- **Browse Products**: Navigate to the homepage to view available products.
-- **Search and Filter**: Use the search bar or genre dropdown to filter products.
-- **Manage Cart**: Add products to your cart and adjust quantities.
-- **Authentication**: Sign up or log in to access personalized features.
+---
 
-## Technologies Used
+## Database Schema
 
-- **Frontend**: HTML, CSS, JavaScript
-- **Backend**: Node.js, Express.js
-- **Database**: PostgreSQL
+### Products Table
 
-## Contributing
+```sql
+CREATE TABLE IF NOT EXISTS products (
+  id SERIAL PRIMARY KEY,
+  title VARCHAR(100) NOT NULL,
+  artist VARCHAR(100) NOT NULL,
+  price DECIMAL(10, 2) NOT NULL,
+  image TEXT NOT NULL,
+  year INTEGER,
+  genre VARCHAR(100),
+  stock INTEGER
+);
+```
 
-1. Fork the repository.
-2. Create a new branch:
-   ```bash
-   git checkout -b feature/your-feature-name
-   ```
-3. Make your changes and commit them:
-   ```bash
-   git commit -m "Add your message here"
-   ```
-4. Push to your branch:
-   ```bash
-   git push origin feature/your-feature-name
-   ```
-5. Open a pull request.
+### Users Table
+
+```sql
+CREATE TABLE IF NOT EXISTS users (
+  id SERIAL PRIMARY KEY,
+  name VARCHAR(100) NOT NULL,
+  username VARCHAR(100) NOT NULL,
+  email VARCHAR(100) NOT NULL,
+  password VARCHAR(100) NOT NULL,
+  created_at TIMESTAMPTZ DEFAULT NOW()
+);
+```
+
+### Cart Items Table
+
+```sql
+CREATE TABLE IF NOT EXISTS cart_items (
+  id SERIAL PRIMARY KEY,
+  user_id INTEGER NOT NULL,
+  product_id INTEGER NOT NULL,
+  quantity INTEGER NOT NULL DEFAULT 1,
+  FOREIGN KEY (user_id) REFERENCES users(id),
+  FOREIGN KEY (product_id) REFERENCES products(id)
+);
+```
+
+### Orders Table
+
+```sql
+CREATE TABLE IF NOT EXISTS orders (
+  id SERIAL PRIMARY KEY,
+  user_id INTEGER NOT NULL,
+  total_price DECIMAL(10, 2) NOT NULL DEFAULT 0.00,
+  status VARCHAR(50) DEFAULT 'pending',
+  order_number VARCHAR(50),
+  created_at TIMESTAMPTZ DEFAULT NOW(),
+  customer_name TEXT,
+  customer_email TEXT,
+  customer_phone TEXT,
+  billing_line1 TEXT,
+  billing_line2 TEXT,
+  billing_city TEXT,
+  billing_postal_code TEXT,
+  billing_country TEXT,
+  shipping_line1 TEXT,
+  shipping_line2 TEXT,
+  shipping_city TEXT,
+  shipping_postal_code TEXT,
+  shipping_country TEXT,
+  FOREIGN KEY (user_id) REFERENCES users(id)
+);
+```
+
+### Order Items Table
+
+```sql
+CREATE TABLE IF NOT EXISTS order_items (
+  id SERIAL PRIMARY KEY,
+  order_id INTEGER NOT NULL,
+  product_id INTEGER NOT NULL,
+  quantity INTEGER NOT NULL,
+  FOREIGN KEY (order_id) REFERENCES orders(id),
+  FOREIGN KEY (product_id) REFERENCES products(id)
+);
+```
+
+---
+
+## Stripe Checkout Integration
+
+> ⚠️ **Testing only.** The Stripe Checkout integration is currently configured for test mode. No real payments will be processed. To simulate payments, refer to the [Stripe Testing documentation](https://docs.stripe.com/testing).
+
+The application uses **Stripe Checkout** for secure payment processing.
+
+Checkout flow:
+
+1. User proceeds to checkout from the cart
+2. Backend creates a Stripe Checkout session
+3. Order is created in PostgreSQL with status `pending`
+4. User is redirected to Stripe Checkout
+5. Stripe processes the payment
+6. Stripe webhook updates the order status
+
+---
+
+## Checkout Endpoint
+
+```
+POST /api/create-checkout-session
+```
+
+Responsibilities:
+
+- Validates cart data
+- Creates order in PostgreSQL
+- Generates Stripe checkout session
+- Redirects user to Stripe payment page
+
+Redirects:
+
+```
+success_url: /success.html?orderId={ORDER_ID}
+cancel_url:  /cart.html
+```
+
+---
+
+## Stripe Webhooks
+
+Stripe webhooks confirm the payment securely.
+
+Endpoint:
+
+```
+POST /api/stripe/webhook
+```
+
+Events handled:
+
+- `checkout.session.completed`
+- `payment_intent.succeeded`
+- `payment_intent.payment_failed`
+
+Webhook responsibilities:
+
+- Verify Stripe signature
+- Update order status
+- Store billing and shipping details
+- Ensure only Stripe can confirm payments
+
+---
+
+## Success Page
+
+The success page displays order confirmation after payment.
+
+Behavior:
+
+- Reads `orderId` from URL parameters
+- Fetches order data from backend
+
+```
+GET /api/orders/:id
+```
+
+- Displays payment confirmation and order details
+- Prevents cart logic from executing on success page
+
+---
+
+## Environment Variables
+
+```env
+DATABASE_URL=
+STRIPE_SECRET_KEY=
+STRIPE_WEBHOOK_SECRET=
+SESSION_SECRET=
+```
+
+---
+
+## Running Locally
+
+Install dependencies:
+
+```bash
+npm install
+```
+
+Start backend server:
+
+```bash
+npm run dev
+```
+
+The server will start on:
+
+```
+http://localhost:8000
+```
+
+---
+
+## Future Improvements
+
+- React frontend
+- Admin product dashboard
+- Order history for users
+- Inventory management
+- Email order confirmations
+
+---
 
 ## License
 
-This project is licensed under the MIT License. See the LICENSE file for details.
-
-## Acknowledgments
-
-- Special thanks to all contributors and open-source libraries used in this project.
+MIT
