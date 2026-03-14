@@ -80,6 +80,16 @@ export const createTable = async () => {
                 // );
             // `
 
+            // `
+            //     CREATE TABLE password_reset_tokens (
+            //         id SERIAL PRIMARY KEY,
+            //         user_id INTEGER REFERENCES users(id),
+            //         token_hash TEXT NOT NULL,
+            //         expires_at TIMESTAMPTZ NOT NULL,
+            //         used BOOLEAN DEFAULT FALSE
+            //     );
+            // `
+
         );
 
         console.log("Table successfully created")

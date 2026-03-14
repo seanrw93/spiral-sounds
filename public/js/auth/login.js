@@ -1,98 +1,95 @@
 import { API_URL } from '../config/config.js';
 
-const signinForm = document.getElementById('signin-form');
-const resetPasswordForm = document.getElementById('reset-password-form');
+document.addEventListener("DOMContentLoaded", () => {
+  const signinForm = document.getElementById('signin-form');
+  const forgotPasswordForm = document.getElementById('forgot-password-form');
 
 
-signinForm.addEventListener('submit', async (e) => {
-  e.preventDefault() // Prevent form from reloading the page
+  signinForm.addEventListener('submit', async (e) => {
+    e.preventDefault() // Prevent form from reloading the page
 
-  const username = document.getElementById('signin-username').value.trim();
-  const password = document.getElementById('signin-password').value.trim();
-  const errorMessage = document.getElementById('error-message');
-  const submitBtn = signinForm.querySelector('button');
+    const username = document.getElementById('signin-username').value.trim();
+    const password = document.getElementById('signin-password').value.trim();
+    const errorMessage = document.getElementById('error-message');
+    const submitBtn = signinForm.querySelector('button');
 
-  errorMessage.textContent = '' // Clear old error messages
-  submitBtn.disabled = true
+    errorMessage.textContent = '' // Clear old error messages
+    submitBtn.disabled = true
 
-  try {
-    const res = await fetch(API_URL + '/api/auth/login', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      credentials: 'include', // Ensure session cookie is sent
-      body: JSON.stringify({ username, password })
-    })
+    try {
+      const res = await fetch(API_URL + '/api/auth/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        credentials: 'include', // Ensure session cookie is sent
+        body: JSON.stringify({ username, password })
+      })
 
-    const data = await res.json()
+      const data = await res.json()
 
-    if (res.ok) { 
-      window.location.href = '/'
-    } else {
-      errorMessage.textContent = data.error || 'Login failed. Please try again.'
+      if (res.ok) { 
+        window.location.href = '/'
+      } else {
+        errorMessage.textContent = data.error || 'Login failed. Please try again.'
+      }
+    } catch (err) {
+      console.error('Network error:', err)
+      errorMessage.textContent = 'Unable to connect. Please try again.'
+    } finally {
+      submitBtn.disabled = false
     }
-  } catch (err) {
-    console.error('Network error:', err)
-    errorMessage.textContent = 'Unable to connect. Please try again.'
-  } finally {
-    submitBtn.disabled = false
-  }
-});
+  });
 
-resetPasswordForm.addEventListener('submit', async (e) => {
-  e.preventDefault() // Prevent form from reloading the page
+  forgotPasswordForm.addEventListener('submit', async (e) => {
+      e.preventDefault() // Prevent form from reloading the page
 
-  const username = document.getElementById('reset-username').value.trim();
-  const password = document.getElementById('reset-password').value.trim();
-  const errorMessage = document.getElementById('error-message');
-  const confirmPassword = document.getElementById('confirm-password').value.trim();
-  const submitBtn = signinForm.querySelector('button');
+      const email = document.getElementById('forgot-email').value.trim();
+      const errorMessage = document.getElementById('error-message');
+      const submitBtn = signinForm.querySelector('button');
 
-  errorMessage.textContent = '' // Clear old error messages
-  submitBtn.disabled = true
+      try {
+        const res = await fetch(API_URL + '/api/auth/request-reset-password', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          credentials: 'include', // Ensure session cookie is sent
+          body: JSON.stringify({ email })
+        });
 
-  console.log({ username, password, confirmPassword })
+        const data = await res.json();
 
-  try {
-    const res = await fetch(API_URL + '/api/auth/reset-password', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      credentials: 'include', // Ensure session cookie is sent
-      body: JSON.stringify({ username, password, confirmPassword })
-    })
+        if (res.ok) { 
+          const formContext = forgotPasswordForm.querySelector('.form-inner');
+          formContext.textContent = "";
+          const confirmation = document.createElement('p');
+          confirmation.textContent = data.message;
 
-    const data = await res.json();
+          submitBtn.disabled = true;
+          
+          const goBackToLogin = document.createElement('p');
+          goBackToLogin.insertAdjacentText('beforeend', 'Go back to login page ');
 
-    if (res.ok) { 
-      const formContext = resetPasswordForm.querySelector('.form-inner');
-      formContext.textContent = "";
-      const confirmation = document.createElement('p');
-      confirmation.textContent = data.message;
-      
-      const goBackToLogin = document.createElement('p');
-      goBackToLogin.insertAdjacentText('beforeend', 'Go back to login page ');
+          const a = document.createElement('a');
+          a.href = '/login.html';
+          a.textContent = 'here';
+          a.className = 'sign-link';
+          goBackToLogin.appendChild(a);
 
-      const a = document.createElement('a');
-      a.href = '/?login';
-      a.textContent = 'here';
-      a.className = 'sign-link';
-      goBackToLogin.appendChild(a);
+          goBackToLogin.insertAdjacentText('beforeend', '.');
 
-      goBackToLogin.insertAdjacentText('beforeend', '.');
-
-      formContext.append(confirmation);
-      formContext.append(goBackToLogin);
-    } else {
-      errorMessage.textContent = data.error || 'Password reset failed. Please try again.'
+          formContext.append(confirmation);
+          formContext.append(goBackToLogin);
+        } else {
+          errorMessage.textContent = data.error || 'Password reset failed. Please try again.'
+        }
+    } catch (err) {
+      console.error('Network error:', err)
+      errorMessage.textContent = 'Unable to connect. Please try again.'
+    } finally {
+      submitBtn.disabled = false
     }
-  } catch (err) {
-    console.error('Network error:', err)
-    errorMessage.textContent = 'Unable to connect. Please try again.'
-  } finally {
-    submitBtn.disabled = false
-  }
+  });
+
 })
-
