@@ -1,355 +1,173 @@
-# Spiral Sounds
+# Spiral Sounds 🎵
 
-Full-stack e-commerce application for purchasing vinyl records.
+Spiral Sounds is a fullstack web application for browsing and managing a music store. Users can explore albums, filter by genre or keyword, manage a shopping cart, and securely authenticate — including a full token-based password reset flow.
 
-The project implements a custom backend with secure authentication, cart management, Stripe payments, and PostgreSQL order storage.
-
-Originally built as a prototype using SQLite, the application has now been upgraded to a production-ready architecture using PostgreSQL and Stripe Checkout.
-
----
-
-## Tech Stack
-
-**Frontend**
-- HTML
-- CSS
-- JavaScript
-
-**Backend**
-- Node.js
-- Express
-
-**Database**
-- PostgreSQL (Render)
-
-**Payments**
-- Stripe Checkout
-- Stripe Webhooks
+**Live site**: [srw-spiral-sounds.netlify.app](https://srw-spiral-sounds.netlify.app/)
 
 ---
 
 ## Features
 
-- User authentication with sessions and HTTPOnly cookies
-- Shopping cart functionality
-- Product catalog
-- Secure Stripe Checkout integration
-- PostgreSQL order management
-- Webhook-based payment confirmation
-- Dynamic order success page
+### Frontend
+- **Product Display** — Browse music albums with title, artist, price, and genre
+- **Search & Filter** — Filter products by keyword or genre
+- **Cart Management** — Add items, adjust quantities, and review your cart
+- **User Authentication** — Sign up, log in, and manage your account
+- **Forgot Password UI** — `login.html` conditionally renders either the login form or the forgot password form based on the `?view=forgot-password` URL search param — no separate page required
+- **Password Reset** — Users follow an emailed link to `reset-password.html` to securely set a new password
+
+### Backend
+- **Product API** — Fetch, filter, and search products
+- **User & Auth API** — Register, login, and full password reset flow
+- **Cart API** — Manage cart items for authenticated users
+- **Secure Password Reset** — Token-based reset via email (Resend), with SHA-256 hashed tokens, 15-minute expiry, and single-use enforcement
+- **Token Cleanup** — Daily cron job removes expired and used reset tokens
+- **Database** — PostgreSQL for products, users, cart, and password reset tokens
 
 ---
 
 ## Project Structure
 
 ```
-spiral_sounds/
-┣ controllers/
-┃ ┣ authController.js
-┃ ┣ cartController.js
-┃ ┣ checkoutController.js
-┃ ┣ healthController.js
-┃ ┣ meController.js
-┃ ┣ ordersController.js
-┃ ┣ productController.js
-┃ ┗ webhookController.js
-┣ data/
-┃ ┗ data.js
-┣ db/
-┃ ┗ db.js
-┣ middleware/
-┃ ┗ requireAuth.js
-┣ public/
-┃ ┣ css/
-┃ ┃ ┗ index.css
-┃ ┣ images/
-┃ ┃ ┣ cart.png
-┃ ┃ ┗ menu.svg
-┃ ┣ js/
-┃ ┃ ┣ auth/
-┃ ┃ ┃ ┣ login.js
-┃ ┃ ┃ ┣ logout.js
-┃ ┃ ┃ ┗ signup.js
-┃ ┃ ┣ config/
-┃ ┃ ┃ ┗ config.js
-┃ ┃ ┣ services/
-┃ ┃ ┃ ┣ cartService.js
-┃ ┃ ┃ ┣ checkoutService.js
-┃ ┃ ┃ ┣ orderService.js
-┃ ┃ ┃ ┗ productService.js
-┃ ┃ ┣ ui/
-┃ ┃ ┃ ┣ authUI.js
-┃ ┃ ┃ ┣ cart.js
-┃ ┃ ┃ ┣ menu.js
-┃ ┃ ┃ ┣ orderUI.js
-┃ ┃ ┃ ┣ productUI.js
-┃ ┃ ┃ ┗ spinner.js
-┃ ┃ ┣ debouncer.js
-┃ ┃ ┗ index.js
-┃ ┣ cart.html
-┃ ┣ index.html
-┃ ┣ login.html
-┃ ┗ signup.html
-┣ routes/
-┃ ┣ auth.js
-┃ ┣ cart.js
-┃ ┣ checkout.js
-┃ ┣ health.js
-┃ ┣ orders.js
-┃ ┣ products.js
-┃ ┗ webhook.js
-┣ sql/
-┃ ┣ createTable.js
-┃ ┣ deleteUser.js
-┃ ┣ logTable.js
-┃ ┣ README.md
-┃ ┗ seedTable.js
-┣ utils/
-┃ ┗ orderNumber.js
-┣ .env.example
-┣ .gitignore
-┣ package-lock.json
-┣ package.json
-┣ README.md
-┗ server.js
+spiral-sounds/
+├── controllers/
+│   ├── authController.js       # Register, login, request reset, reset password
+│   ├── cartController.js
+│   ├── meController.js
+│   └── productControllers.js
+├── cron/
+│   └── cleanupTokens.js        # Daily cron job to purge expired/used tokens
+├── data/
+│   └── data.js
+├── db/
+│   └── db.js                   # PostgreSQL connection pool
+├── middleware/
+├── public/
+│   ├── index.html
+│   ├── login.html              # Renders login or forgot password form via search params
+│   ├── signup.html
+│   ├── cart.html
+│   ├── reset-password.html     # Password reset form (linked from email)
+│   ├── css/
+│   ├── images/
+│   └── js/
+│       ├── auth/
+│       │   ├── login.js        # Handles login + forgot password form submission
+│       │   └── resetPassword.js # Extracts token from URL, submits new password
+│       └── ui/
+│           └── loginUI.js      # Toggles login/forgot-password UI from search params
+├── routes/
+│   ├── auth.js
+│   ├── cart.js
+│   └── products.js
+├── sql/
+│   ├── createTable.js          # DB schema including password_reset_tokens table
+│   ├── deleteUser.js
+│   ├── logTable.js
+│   └── seedTable.js
+├── utils/
+├── .env.example
+├── .gitignore
+├── package.json
+├── server.js
+└── README.md
 ```
 
 ---
 
-## Database Migration
+## Installation
 
-The project migrated from **SQLite** to **PostgreSQL** to support production deployment.
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/seanrw93/spiral-sounds.git
+   cd spiral-sounds
+   ```
 
-Reasons for migration:
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
 
-- Better concurrency
-- Production reliability
-- Render cloud compatibility
-- Reliable Stripe webhook processing
+3. **Configure environment variables**
 
-Database connection uses:
+   Copy `.env.example` to `.env` and fill in your values:
+   ```bash
+   cp .env.example .env
+   ```
 
-```
-process.env.DATABASE_URL
-```
+   Required variables:
+   ```
+   DATABASE_URL=
+   SESSION_SECRET=
+   RESEND_SECRET_KEY=
+   CLIENT_URL=              # e.g. https://yourdomain.com (used in reset email links)
+   NODE_ENV=development
+   ```
 
-SSL is enabled for Render PostgreSQL.
+4. **Set up the database**
 
----
+   Ensure PostgreSQL is running, then initialise the schema:
+   ```bash
+   node sql/createTable.js
+   ```
 
-## Database Schema
+   Optionally seed with product data:
+   ```bash
+   node sql/seedTable.js
+   ```
 
-### Products Table
+5. **Start the server**
+   ```bash
+   npm start
+   ```
 
-```sql
-CREATE TABLE IF NOT EXISTS products (
-  id SERIAL PRIMARY KEY,
-  title VARCHAR(100) NOT NULL,
-  artist VARCHAR(100) NOT NULL,
-  price DECIMAL(10, 2) NOT NULL,
-  image TEXT NOT NULL,
-  year INTEGER,
-  genre VARCHAR(100),
-  stock INTEGER
-);
-```
-
-### Users Table
-
-```sql
-CREATE TABLE IF NOT EXISTS users (
-  id SERIAL PRIMARY KEY,
-  name VARCHAR(100) NOT NULL,
-  username VARCHAR(100) NOT NULL,
-  email VARCHAR(100) NOT NULL,
-  password VARCHAR(100) NOT NULL,
-  created_at TIMESTAMPTZ DEFAULT NOW()
-);
-```
-
-### Cart Items Table
-
-```sql
-CREATE TABLE IF NOT EXISTS cart_items (
-  id SERIAL PRIMARY KEY,
-  user_id INTEGER NOT NULL,
-  product_id INTEGER NOT NULL,
-  quantity INTEGER NOT NULL DEFAULT 1,
-  FOREIGN KEY (user_id) REFERENCES users(id),
-  FOREIGN KEY (product_id) REFERENCES products(id)
-);
-```
-
-### Orders Table
-
-```sql
-CREATE TABLE IF NOT EXISTS orders (
-  id SERIAL PRIMARY KEY,
-  user_id INTEGER NOT NULL,
-  total_price DECIMAL(10, 2) NOT NULL DEFAULT 0.00,
-  status VARCHAR(50) DEFAULT 'pending',
-  order_number VARCHAR(50),
-  created_at TIMESTAMPTZ DEFAULT NOW(),
-  customer_name TEXT,
-  customer_email TEXT,
-  customer_phone TEXT,
-  billing_line1 TEXT,
-  billing_line2 TEXT,
-  billing_city TEXT,
-  billing_postal_code TEXT,
-  billing_country TEXT,
-  shipping_line1 TEXT,
-  shipping_line2 TEXT,
-  shipping_city TEXT,
-  shipping_postal_code TEXT,
-  shipping_country TEXT,
-  FOREIGN KEY (user_id) REFERENCES users(id)
-);
-```
-
-### Order Items Table
-
-```sql
-CREATE TABLE IF NOT EXISTS order_items (
-  id SERIAL PRIMARY KEY,
-  order_id INTEGER NOT NULL,
-  product_id INTEGER NOT NULL,
-  quantity INTEGER NOT NULL,
-  FOREIGN KEY (order_id) REFERENCES orders(id),
-  FOREIGN KEY (product_id) REFERENCES products(id)
-);
-```
+6. Open `http://localhost:8000` in your browser.
 
 ---
 
-## Stripe Checkout Integration
+## Password Reset Flow
 
-> ⚠️ **Testing only.** The Stripe Checkout integration is currently configured for test mode. No real payments will be processed. To simulate payments, refer to the [Stripe Testing documentation](https://docs.stripe.com/testing).
-
-The application uses **Stripe Checkout** for secure payment processing.
-
-Checkout flow:
-
-1. User proceeds to checkout from the cart
-2. Backend creates a Stripe Checkout session
-3. Order is created in PostgreSQL with status `pending`
-4. User is redirected to Stripe Checkout
-5. Stripe processes the payment
-6. Stripe webhook updates the order status
+1. User clicks **"Forgot password?"** on `login.html?view=forgot-password`
+2. They submit their email — the server generates a secure random token, hashes it (SHA-256), and stores it in `password_reset_tokens` with a 15-minute expiry
+3. An email is sent via **Resend** from `no-reply@spiralsounds.shop` containing a link to `reset-password.html?token=<raw_token>`
+4. The user submits a new password — the server hashes the incoming token, validates it against the DB (unexpired + unused), prevents password reuse, updates the password, and marks the token as used
+5. A **daily cron job** (3am) cleans up all expired and used tokens
 
 ---
 
-## Checkout Endpoint
+## Technologies Used
 
-```
-POST /api/checkout/session
-```
-
-Responsibilities:
-
-- Validates cart data
-- Creates order in PostgreSQL
-- Generates Stripe checkout session
-- Redirects user to Stripe payment page
-
-Redirects:
-
-```
-success_url: /success.html?orderId={ORDER_ID}
-cancel_url:  /cart.html
-```
+| Layer | Stack |
+|---|---|
+| Frontend | HTML, CSS, Vanilla JavaScript |
+| Backend | Node.js, Express.js |
+| Database | PostgreSQL |
+| Auth | bcryptjs, express-session |
+| Email | Resend |
+| Scheduling | node-cron |
+| Validation | validator |
+| Payments | Stripe |
 
 ---
 
-## Stripe Webhooks
+## Contributing
 
-Stripe webhooks confirm the payment securely.
-
-Endpoint:
-
-```
-POST /api/stripe/webhook
-```
-
-Events handled:
-
-- `checkout.session.completed`
-- `payment_intent.succeeded`
-- `payment_intent.payment_failed`
-
-Webhook responsibilities:
-
-- Verify Stripe signature
-- Update order status
-- Store billing and shipping details
-- Ensure only Stripe can confirm payments
-
----
-
-## Success Page
-
-The success page displays order confirmation after payment.
-
-Behavior:
-
-- Reads `orderId` from URL parameters
-- Fetches order data from backend
-
-```
-GET /api/orders/:orderid
-```
-
-- Displays payment confirmation and order details
-- Prevents cart logic from executing on success page
-
----
-
-## Environment Variables
-
-```env
-SPIRAL_SECRET_SESSION=
-STRIPE_SECRET_KEY=
-STRIPE_WEBHOOK_SECRET=
-DATABASE_URL=postgre://username:password@localhost:5432/db_name
-PORT=
-NODE_ENV="production"
-CLIENT_URL=
-```
-
----
-
-## Running Locally
-
-Install dependencies:
-
-```bash
-npm install
-```
-
-Start backend server:
-
-```bash
-npm start
-```
-
-The server will start on:
-
-```
-http://localhost:8000
-```
-
----
-
-## Future Improvements
-
-- React frontend migration 
-- Admin product dashboard
-- Order history for users
-- Inventory management
-- Email order confirmations
+1. Fork the repository
+2. Create a feature branch:
+   ```bash
+   git checkout -b feature/your-feature-name
+   ```
+3. Commit your changes:
+   ```bash
+   git commit -m "feat: describe your change"
+   ```
+4. Push and open a pull request:
+   ```bash
+   git push origin feature/your-feature-name
+   ```
 
 ---
 
 ## License
 
-MIT
+This project is licensed under the MIT License.
