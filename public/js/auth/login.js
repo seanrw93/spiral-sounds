@@ -48,6 +48,9 @@ document.addEventListener("DOMContentLoaded", () => {
       const errorMessage = document.getElementById('error-message');
       const submitBtn = signinForm.querySelector('button');
 
+      errorMessage.textContent = '' // Clear old error messages
+      submitBtn.disabled = true
+
       try {
         const res = await fetch(API_URL + '/api/auth/request-reset-password', {
           method: 'POST',
@@ -64,10 +67,7 @@ document.addEventListener("DOMContentLoaded", () => {
           const formContext = forgotPasswordForm.querySelector('.form-inner');
           formContext.textContent = "";
           const confirmation = document.createElement('p');
-          confirmation.textContent = data.message;
-
-          submitBtn.disabled = true;
-          
+          confirmation.textContent = data.message;          
           const goBackToLogin = document.createElement('p');
           goBackToLogin.insertAdjacentText('beforeend', 'Go back to login page ');
 

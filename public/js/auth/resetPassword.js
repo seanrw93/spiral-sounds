@@ -36,10 +36,7 @@ document.addEventListener("DOMContentLoaded", () => {
           const formContext = resetPasswordForm.querySelector('.form-inner');
           formContext.textContent = "";
           const confirmation = document.createElement('p');
-          confirmation.textContent = data.message;
-
-          submitBtn.disabled = true;
-          
+          confirmation.textContent = data.message;          
           const goBackToLogin = document.createElement('p');
           goBackToLogin.insertAdjacentText('beforeend', 'Go back to login page ');
 
