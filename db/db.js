@@ -11,5 +11,6 @@ export const pool = new Pool({
     ssl: {
         rejectUnauthorized: false, 
     },
+    family: 4,
     connectionTimeoutMillis: 30000,
 });
