@@ -92,9 +92,16 @@ body {
   font-size: var(--text-base);
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
-  min-height: 100vh;
+  min-height: calc(100vh - var(--nav-height));
   display: flex;
   flex-direction: column;
+}
+
+/* Scroll anchor offset — prevents sticky nav from covering jump targets */
+#products-container,
+#about-body,
+#faq-body {
+  scroll-margin-top: var(--nav-height);
 }
 
 /* Page fade-in */
@@ -428,7 +435,7 @@ header.site-hero {
   align-items: center;
   justify-content: center;
   text-align: center;
-  min-height: 420px;
+  min-height: calc(100vh - var(--nav-height));
   padding: var(--spacing-3xl) var(--spacing-xl);
   background:
     linear-gradient(160deg, rgba(232,54,93,0.12) 0%, transparent 50%),
@@ -513,6 +520,109 @@ header.site-hero::before {
 /* Non-hero header (cart, login, etc.) */
 header:not(.site-hero) {
   display: none;
+}
+
+/* ===========================================
+   Light section — shared across all pages
+   =========================================== */
+
+/* Light-mode token overrides scoped to .light-section */
+.light-section {
+  --color-bg:              #f5f4f0;
+  --color-surface:         #ffffff;
+  --color-surface-raised:  #eceae4;
+  --color-surface-overlay: #e4e2dc;
+  --color-border:          rgba(0, 0, 0, 0.09);
+  --color-border-strong:   rgba(0, 0, 0, 0.18);
+  --color-text:            #1a1a1a;
+  --color-text-muted:      #4a4558;
+  --color-text-faint:      #7a7588;
+
+  background-color: var(--color-bg);
+  color: var(--color-text);
+}
+
+/* Skeleton shimmer adjusted for light bg */
+.light-section .skeleton {
+  background: linear-gradient(90deg, var(--color-surface-raised) 25%, var(--color-surface-overlay) 50%, var(--color-surface-raised) 75%);
+  background-size: 200% 100%;
+}
+
+/* Select arrow SVG stroke is baked in as a data-URI with a dark colour for dark theme;
+   override fill to work on light bg */
+.light-section select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%234a4558' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+}
+
+/* Remove-btn border on light bg */
+.light-section .remove-btn {
+  border-color: rgba(0, 0, 0, 0.12);
+  color: var(--color-text-faint);
+}
+
+/* Cart summary sticky panel */
+.light-section .cart-summary {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+}
+
+/* About value-card hover uses --color-border-strong which is now light-aware */
+.light-section .about-cta-secondary {
+  color: var(--color-text-muted);
+  border-color: var(--color-border-strong);
+}
+
+.light-section .about-cta-secondary:hover {
+  color: var(--color-text);
+  border-color: var(--color-text-muted);
+}
+
+/* FAQ question icon bg */
+.light-section .faq-question-icon {
+  background: var(--color-surface-raised);
+}
+
+/* Page header border */
+.light-section .page-header {
+  border-bottom-color: var(--color-border);
+}
+
+/* Order card header row */
+.light-section .order-card-header {
+  background: var(--color-surface-raised);
+}
+
+.light-section .order-shipping {
+  background: var(--color-surface-raised);
+}
+
+/* Sign form card — keep the card itself white with a light shadow */
+.light-section .sign-form {
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+}
+
+/* Sign-in input background */
+.light-section .field-wrap input,
+.light-section input[type="text"],
+.light-section input[type="email"],
+.light-section input[type="password"] {
+  background-color: var(--color-surface-raised);
+  color: var(--color-text);
+  border-color: var(--color-border);
+}
+
+.light-section .field-wrap input:focus,
+.light-section input[type="text"]:focus,
+.light-section input[type="email"]:focus,
+.light-section input[type="password"]:focus {
+  background-color: var(--color-surface);
+  border-color: var(--color-primary);
+}
+
+/* Nav search — only visible on index but included for completeness */
+.light-section .nav-search {
+  background-color: var(--color-surface-raised);
+  color: var(--color-text);
+  border-color: var(--color-border);
 }
 
 /* ===========================================
@@ -1504,14 +1614,23 @@ textarea:focus {
   border-bottom: 1px solid var(--color-border);
   background: linear-gradient(160deg, rgba(232,54,93,0.08) 0%, transparent 55%);
   padding: var(--spacing-3xl) var(--spacing-xl);
+  min-height: calc(100vh - var(--nav-height));
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .about-hero-inner {
   max-width: 720px;
   margin: 0 auto;
+  text-align: center;
 }
 
-.about-eyebrow {
+.about-hero-inner .hero-cta {
+  margin-top: var(--spacing-xl);
+}
+
+.eyebrow {
   font-size: var(--text-xs);
   font-weight: 700;
   text-transform: uppercase;
@@ -1689,18 +1808,27 @@ textarea:focus {
 .faq-hero {
   border-bottom: 1px solid var(--color-border);
   padding: var(--spacing-3xl) var(--spacing-xl);
+  min-height: calc(100vh - var(--nav-height));
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .faq-hero-inner {
   max-width: 720px;
   margin: 0 auto;
+  text-align: center;
+}
+
+.faq-hero-inner .hero-cta {
+  margin-top: var(--spacing-xl);
 }
 
 .faq-hero h1 {
   margin-bottom: var(--spacing-sm);
 }
 
-.faq-hero p {
+.faq-hero p:not(.eyebrow) {
   color: var(--color-text-muted);
   font-size: var(--text-lg);
 }
@@ -2311,7 +2439,12 @@ select:focus-visible {
   .products {
     padding: var(--spacing-md);
     gap: var(--spacing-md);
-    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    grid-template-columns: 1fr;
+  }
+
+  /* Always show add-to-cart on mobile (no hover available) */
+  .add-btn-wrapper {
+    transform: translateY(0);
   }
 
   /* Larger tap targets on product cards */
@@ -2337,7 +2470,6 @@ select:focus-visible {
   }
 
   header.site-hero {
-    min-height: 300px;
     padding: var(--spacing-2xl) var(--spacing-md);
   }
 
