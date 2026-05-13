@@ -1,5 +1,5 @@
 import { logout } from './auth/logout.js'
-import { checkAuth, renderGreeting, showHideMenuItems } from './ui/authUI.js'
+import { checkAuth, renderGreeting, showHideMenuItems, initUserMenuDropdown } from './ui/authUI.js'
 import { getProducts, populateGenreSelect } from './services/productService.js'
 import { renderProducts, applySearchFilter } from './ui/productUI.js'
 import { updateCartIcon } from './services/cartService.js'
@@ -16,6 +16,7 @@ async function init() {
   renderGreeting(username)
   renderProducts(products)
   showHideMenuItems(username)
+  initUserMenuDropdown()
   if (username) {
     await updateCartIcon()
   }

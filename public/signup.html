@@ -7,68 +7,88 @@
   <link rel="stylesheet" href="css/index.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plaster&family=Poppins:wght@400;600;700&display=swap"
-    rel="stylesheet">
-  <title>Spiral Sounds</title>
+  <link rel="preconnect" href="https://api.fontshare.com" crossorigin>
+  <link href="https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@400,500,600,700,800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="https://i.imgur.com/p24IMXy.png">
+  <title>Create Account — Spiral Sounds</title>
 </head>
 
 <body>
-  <div class="top-banner">
-  <button class="menu-toggle" aria-label="Toggle menu"><img src="images/menu.svg"></button>
-    <nav class="header-menu" aria-label="Main menu">
-      <a href="/login.html">Login</a>
-      <a href="/signup.html" aria-current="page">Sign up</a>
-    </nav>
+
+  <!-- ===== Sticky Navbar ===== -->
+  <div class="top-banner" id="top-banner">
+    <a href="/" class="nav-logo" aria-label="Spiral Sounds home">
+      <img src="https://i.imgur.com/p24IMXy.png" alt="">
+      Spiral Sounds
+    </a>
+
+    <div class="nav-right">
+      <nav class="nav-auth" id="header-menu" aria-label="Account">
+        <a href="/login.html" class="nav-auth-link">Log in</a>
+        <a href="/signup.html" aria-current="page" class="nav-auth-btn">Sign up</a>
+      </nav>
+      <button class="menu-toggle" id="menu-toggle" aria-label="Toggle menu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          <line class="bar bar-top" x1="3" y1="5"  x2="21" y2="5"/>
+          <line class="bar bar-mid" x1="3" y1="12" x2="21" y2="12"/>
+          <line class="bar bar-bot" x1="3" y1="19" x2="21" y2="19"/>
+        </svg>
+      </button>
+    </div>
   </div>
 
-  <header>
-    <a href="/"><img src="https://i.imgur.com/p24IMXy.png" alt="Spiral Sounds Logo"></a>
-    <div class="header-text">
-      <h1>Spiral Sounds</h1>
-      <p class="subhead">The best in vinyl</p>
-    </div>
-  </header>
+  <!-- Mobile overlay -->
+  <div class="menu-overlay" id="menu-overlay" aria-hidden="true"></div>
 
+  <!-- ===== Auth card ===== -->
   <main class="sign-forms">
-
-    <!-- Sign Up Form -->
-    <form class="sign-form" id="signup-form" autocomplete="off">
+    <form class="sign-form" id="signup-form" autocomplete="off" novalidate>
+      <h2>Create account</h2>
       <div class="form-inner">
-        <h2>Sign Up</h2> 
-        <label for="signup-name">Full Name</label>
-        <input type="text" id="signup-name" name="name" required/>
 
-        <label for="signup-email">Email</label>
-        <input type="email" id="signup-email" name="email" required/>
+        <div class="field-wrap">
+          <label for="signup-name">Full name</label>
+          <input type="text" id="signup-name" name="name" placeholder="Jane Smith" required autocomplete="name">
+        </div>
 
-        <label for="signup-username">Username</label>
-        <input 
-          type="text" 
-          id="signup-username" 
-          name="username" 
-          pattern="/^[a-zA-Z0-9_-]{1,20}$/" 
-          title="Username must be 1–20 characters and can only include letters, numbers, underscores (_), or hyphens (-)."
-          required
-        />
+        <div class="field-wrap">
+          <label for="signup-email">Email address</label>
+          <input type="email" id="signup-email" name="email" placeholder="you@example.com" required autocomplete="email">
+        </div>
 
-        <label for="signup-password">Password</label>
-        <input 
-          type="password" 
-          id="signup-password" 
-          name="password"
-          required 
-        />
+        <div class="field-wrap">
+          <label for="signup-username">Username</label>
+          <input
+            type="text"
+            id="signup-username"
+            name="username"
+            placeholder="your_username"
+            pattern="/^[a-zA-Z0-9_-]{1,20}$/"
+            title="1–20 characters: letters, numbers, underscores, or hyphens."
+            required
+            autocomplete="username"
+          >
+        </div>
+
+        <div class="field-wrap">
+          <label for="signup-password">Password</label>
+          <input type="password" id="signup-password" name="password" placeholder="••••••••" required autocomplete="new-password">
+        </div>
+
         <button type="submit" class="form-btn">Create Account</button>
         <p>Already registered? <a href="/login.html" class="sign-link">Sign in here</a>.</p>
-        <p id="error-message" class="error"></p>
+        <p id="error-message" class="error" aria-live="polite"></p>
       </div>
     </form>
   </main>
+
   <footer>
-    <p>© Spiral Sounds</p>
+    <p>© 2025 Spiral Sounds. All rights reserved.</p>
   </footer>
+
   <script src="js/ui/menu.js" type="module"></script>
   <script src="js/auth/signup.js" type="module"></script>
 </body>
 
-</html>  
+</html>

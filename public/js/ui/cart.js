@@ -1,5 +1,5 @@
 import { logout } from '../auth/logout.js';
-import { checkAuth, renderGreeting, showHideMenuItems } from './authUI.js';
+import { checkAuth, renderGreeting, showHideMenuItems, initUserMenuDropdown } from './authUI.js';
 import { loadCart, removeItem, removeAll } from '../services/cartService.js';
 import { createOrder } from '../services/orderService.js';
 import { createCheckoutSession } from '../services/checkoutService.js';
@@ -51,6 +51,7 @@ async function init() {
   const username = await checkAuth();
   renderGreeting(username);
   showHideMenuItems(username);
+  initUserMenuDropdown();
 } 
  
 init();
