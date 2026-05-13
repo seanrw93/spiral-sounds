@@ -27,5 +27,25 @@ export const getCurrentUser = async (req, res) => {
     } catch (err) {
         console.error('getCurrentUser error:', err);
         res.status(500).json({ error: 'Internal server error' });
-    } 
+    }
+}
+
+export const getAccount = async (req, res) => {
+    const { userId } = req.session;
+
+    try {
+        const result = await pool.query(
+            'SELECT name, username, email, created_at FROM users WHERE id = $1',
+            [userId]
+        );
+
+        if (result.rowCount === 0) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+
+        res.json(result.rows[0]);
+    } catch (err) {
+        console.error('getAccount error:', err);
+        res.status(500).json({ error: 'Internal server error' });
+    }
 }

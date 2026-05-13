@@ -1,22 +1,22 @@
 import { API_URL } from '../config/config.js';
-import { createSpinner, destroySpinner} from "../ui/spinner.js"
+import { renderSkeletons } from '../ui/productUI.js'
 
 
 // ===== Fetching products =====
 
 export async function getProducts(filters = {}) {
   const queryParams = new URLSearchParams(filters);
-  const container = document.querySelector("#products-container");
-  let spinner;
-  
+  const container = document.querySelector('#products-container');
+
+  if (container) renderSkeletons()
+
   try {
-    spinner = createSpinner(container)
     const res = await fetch(`${API_URL}/api/products?${queryParams}`, { credentials: 'include' });
-    return await res.json();
+    const data = await res.json();
+    return Array.isArray(data) ? data : []
   } catch (err) {
     console.error('Error loading products:', err);
-  } finally {
-    destroySpinner(spinner);
+    return []
   }
 }
 
@@ -24,7 +24,8 @@ export async function getProducts(filters = {}) {
 
 export async function populateGenreSelect() {
   const res = await fetch(API_URL + '/api/products/genres', { credentials: 'include' });
-  const genres = await res.json() // expects an array of genres as strings: ['rock', 'pop', ...]
+  const data = await res.json()
+  const genres = Array.isArray(data) ? data : []
   const select = document.getElementById('genre-select')
 
   genres.forEach(genre => {
