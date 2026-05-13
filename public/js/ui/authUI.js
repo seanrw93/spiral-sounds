@@ -1,4 +1,5 @@
 import { API_URL } from '../config/config.js'
+import { renderMobileAuth } from './menu.js'
 
 export async function checkAuth() {
   try {
@@ -38,6 +39,14 @@ export function showHideMenuItems(name) {
   if (legacyLogout && !legacyLogout.closest('.user-menu')) {
     legacyLogout.style.display = isLoggedIn ? 'inline' : 'none'
   }
+
+  renderMobileAuth(name)
+}
+
+export async function initAuth() {
+  const name = await checkAuth()
+  showHideMenuItems(name)
+  initUserMenuDropdown()
 }
 
 export function initUserMenuDropdown() {

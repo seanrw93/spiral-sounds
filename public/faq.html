@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/index.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://api.fontshare.com" crossorigin>
+  <link href="https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@400,500,600,700,800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="https://i.imgur.com/p24IMXy.png">
+  <title>FAQ — Spiral Sounds</title>
+  <meta name="description" content="Answers to common questions about ordering, shipping, record condition, and more at Spiral Sounds.">
+  <meta property="og:title" content="FAQ — Spiral Sounds">
+  <meta property="og:description" content="Answers to common questions about ordering, shipping, record condition grading, and more.">
+  <meta property="og:image" content="https://i.imgur.com/p24IMXy.png">
+</head>
+
+<body>
+
+  <!-- ===== Sticky Navbar ===== -->
+  <div class="top-banner" id="top-banner">
+    <a href="/" class="nav-logo" aria-label="Spiral Sounds home">
+      <img src="https://i.imgur.com/p24IMXy.png" alt="">
+      Spiral Sounds
+    </a>
+
+    <nav class="nav-links" aria-label="Site navigation">
+      <a href="/" class="nav-link">Shop</a>
+      <a href="/about.html" class="nav-link">About</a>
+      <a href="/faq.html" class="nav-link" aria-current="page">FAQ</a>
+    </nav>
+
+    <div class="nav-right">
+      <span id="cart-banner" class="cart-banner-link" aria-label="Shopping cart"></span>
+      <nav class="nav-auth" id="header-menu" aria-label="Account">
+        <a href="/login.html" id="login" class="nav-auth-link">Log in</a>
+        <a href="/signup.html" id="signup" class="nav-auth-btn">Sign up</a>
+        <div class="user-menu" id="user-menu">
+          <button class="user-menu-trigger" id="user-menu-trigger" aria-haspopup="true" aria-expanded="false">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+            <span id="user-menu-name"></span>
+            <svg class="chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+          </button>
+          <div class="user-menu-dropdown" id="user-menu-dropdown" role="menu">
+            <a href="/orders.html" class="user-menu-item" role="menuitem">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/></svg>
+              Order History
+            </a>
+            <a href="/account.html" class="user-menu-item" role="menuitem">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+              Account
+            </a>
+            <div class="user-menu-divider"></div>
+            <button class="user-menu-item user-menu-logout" id="logout-btn" role="menuitem">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+              Log out
+            </button>
+          </div>
+        </div>
+      </nav>
+      <button class="menu-toggle" id="menu-toggle" aria-label="Toggle menu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          <line class="bar bar-top" x1="3" y1="5"  x2="21" y2="5"/>
+          <line class="bar bar-mid" x1="3" y1="12" x2="21" y2="12"/>
+          <line class="bar bar-bot" x1="3" y1="19" x2="21" y2="19"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <div class="mobile-menu" id="mobile-menu" aria-hidden="true">
+    <nav class="mobile-nav-links" aria-label="Site navigation">
+      <a href="/" class="mobile-nav-link">Shop</a>
+      <a href="/about.html" class="mobile-nav-link">About</a>
+      <a href="/faq.html" class="mobile-nav-link">FAQ</a>
+    </nav>
+    <div class="mobile-menu-divider"></div>
+    <div class="mobile-auth-links" id="mobile-auth-links"></div>
+  </div>
+
+  <!-- ===== FAQ content ===== -->
+  <main>
+    <div class="faq-hero">
+      <div class="faq-hero-inner">
+        <h1>Frequently asked questions</h1>
+        <p>Can't find what you're looking for? <a href="mailto:hello@spiralsounds.shop">Email us</a> and we'll get back to you within one business day.</p>
+      </div>
+    </div>
+
+    <div class="faq-body">
+
+      <div class="faq-group">
+        <p class="faq-group-title">Ordering</p>
+
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false" aria-controls="faq-1">
+            How do I place an order?
+            <span class="faq-question-icon" aria-hidden="true">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            </span>
+          </button>
+          <div class="faq-answer" id="faq-1" role="region">
+            <div class="faq-answer-inner">
+              <p>Browse the collection, add records to your cart, then proceed to checkout. We accept all major credit and debit cards via Stripe. You'll need to create an account to complete a purchase — this lets you track your order history.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false" aria-controls="faq-2">
+            Can I order a record that isn't listed?
+            <span class="faq-question-icon" aria-hidden="true">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            </span>
+          </button>
+          <div class="faq-answer" id="faq-2" role="region">
+            <div class="faq-answer-inner">
+              <p>Absolutely. We source records on request. <a href="mailto:hello@spiralsounds.shop">Email us</a> with the artist, album title, and any pressing preferences and we'll do our best to track it down. No fees for looking — we'll quote you before committing to anything.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false" aria-controls="faq-3">
+            Is payment secure?
+            <span class="faq-question-icon" aria-hidden="true">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            </span>
+          </button>
+          <div class="faq-answer" id="faq-3" role="region">
+            <div class="faq-answer-inner">
+              <p>Yes. All payments are processed by <a href="https://stripe.com" target="_blank" rel="noopener">Stripe</a>, one of the world's most trusted payment platforms. We never see or store your card details — they go directly to Stripe's encrypted servers.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-group">
+        <p class="faq-group-title">Shipping</p>
+
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false" aria-controls="faq-4">
+            How long does shipping take?
+            <span class="faq-question-icon" aria-hidden="true">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            </span>
+          </button>
+          <div class="faq-answer" id="faq-4" role="region">
+            <div class="faq-answer-inner">
+              <p>Australian orders typically arrive within 3–7 business days. International orders take 10–21 business days depending on your country. We dispatch all orders within one business day of payment clearing.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false" aria-controls="faq-5">
+            Do you offer free shipping?
+            <span class="faq-question-icon" aria-hidden="true">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            </span>
+          </button>
+          <div class="faq-answer" id="faq-5" role="region">
+            <div class="faq-answer-inner">
+              <p>Yes — free standard shipping on all Australian orders over $75. International orders are charged at cost based on weight and destination. You'll see the exact shipping fee at checkout before confirming your order.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false" aria-controls="faq-6">
+            How are records packaged?
+            <span class="faq-question-icon" aria-hidden="true">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            </span>
+          </button>
+          <div class="faq-answer" id="faq-6" role="region">
+            <div class="faq-answer-inner">
+              <p>Every record ships in a purpose-built cardboard record mailer with corner protectors and a stiffener board. We've shipped tens of thousands of records and take packaging seriously — we've never had a cracked sleeve complaint.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-group">
+        <p class="faq-group-title">Record condition</p>
+
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false" aria-controls="faq-7">
+            How do you grade record condition?
+            <span class="faq-question-icon" aria-hidden="true">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            </span>
+          </button>
+          <div class="faq-answer" id="faq-7" role="region">
+            <div class="faq-answer-inner">
+              <p>We use the Goldmine grading standard: Mint (M), Near Mint (NM), Very Good Plus (VG+), Very Good (VG), and Good (G). Every record is graded by hand before listing. If there are any surface marks or sleeve wear worth knowing about, we note them in the listing description.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false" aria-controls="faq-8">
+            Are the records new or second-hand?
+            <span class="faq-question-icon" aria-hidden="true">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            </span>
+          </button>
+          <div class="faq-answer" id="faq-8" role="region">
+            <div class="faq-answer-inner">
+              <p>Both. We carry new sealed pressings, new open copies, and a curated selection of used records in excellent condition. The listing will always make clear whether a record is new or used, and the condition grade applies to both the vinyl and the sleeve.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-group">
+        <p class="faq-group-title">Returns & problems</p>
+
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false" aria-controls="faq-9">
+            What if my order arrives damaged?
+            <span class="faq-question-icon" aria-hidden="true">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            </span>
+          </button>
+          <div class="faq-answer" id="faq-9" role="region">
+            <div class="faq-answer-inner">
+              <p><a href="mailto:hello@spiralsounds.shop">Email us</a> within 7 days of delivery with a photo of the damage and your order number. We'll arrange a replacement or full refund — whichever you prefer. We cover return postage for damaged items.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false" aria-controls="faq-10">
+            Can I return a record if I change my mind?
+            <span class="faq-question-icon" aria-hidden="true">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            </span>
+          </button>
+          <div class="faq-answer" id="faq-10" role="region">
+            <div class="faq-answer-inner">
+              <p>We accept returns within 14 days of delivery on unopened records in original condition. Used records are sold as described — if you have a concern about a listing's accuracy, <a href="mailto:hello@spiralsounds.shop">contact us</a> and we'll sort it out. Return postage is the buyer's responsibility for change-of-mind returns.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <a href="/" class="footer-logo">
+          <img src="https://i.imgur.com/p24IMXy.png" alt="">
+          Spiral Sounds
+        </a>
+        <p class="footer-tagline">Premium vinyl records, carefully curated for audiophiles and collectors. Free shipping on orders over $75.</p>
+        <div class="footer-trust">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          Secure checkout &middot; Powered by Stripe
+        </div>
+      </div>
+      <div class="footer-col">
+        <p class="footer-col-heading">Shop</p>
+        <ul class="footer-links">
+          <li><a href="/">All Records</a></li>
+          <li><a href="/cart.html">Your Cart</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <p class="footer-col-heading">Contact</p>
+        <div class="footer-contact-item">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          <a href="mailto:hello@spiralsounds.shop">hello@spiralsounds.shop</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copyright">© 2025 Spiral Sounds. All rights reserved.</p>
+      <div class="footer-social" aria-label="Social media">
+        <a href="#" aria-label="Instagram"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+        <a href="#" aria-label="Facebook"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+        <a href="#" aria-label="Twitter / X"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 4l16 16M4 20L20 4"/></svg></a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/ui/menu.js" type="module"></script>
+  <script type="module">import { initAuth } from './js/ui/authUI.js'; initAuth()</script>
+  <script src="js/faq.js" type="module"></script>
+</body>
+
+</html>

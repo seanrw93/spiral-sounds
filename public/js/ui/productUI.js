@@ -56,7 +56,20 @@ export function renderProducts(products) {
   const container = document.getElementById('products-container')
   if (!container) return
 
-  if (!products || products.length === 0) {
+  if (products === null) {
+    container.innerHTML = `
+      <div class="empty-state" role="status">
+        <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+          <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+        </svg>
+        <p>Couldn't load the collection</p>
+        <span>We're having a technical issue — please check back shortly or <a href="mailto:hello@spiralsounds.shop">contact us</a>.</span>
+      </div>
+    `
+    return
+  }
+
+  if (products.length === 0) {
     container.innerHTML = `
       <div class="empty-state" role="status">
         <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">

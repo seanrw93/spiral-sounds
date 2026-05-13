@@ -19,6 +19,7 @@ Spiral Sounds is a fullstack web application for browsing and purchasing vinyl r
 - **Order History** — Browse all past orders with status and line items
 - **Password Reset** — Request a reset link by email; `login.html` conditionally renders the forgot-password form via URL params — no separate page needed
 - **Responsive Design** — Mobile-first layout with animated hamburger menu and full-width dropdown nav
+- **Mobile Auth Menu** — Hamburger menu shows Log in / Sign up when logged out, and Order History / Account / Log out when logged in — consistent across all pages
 
 ### Backend
 - **Product API** — Fetch, filter, and search products
@@ -50,6 +51,8 @@ spiral_sounds_v2/
 │   └── requireAuth.js
 ├── public/
 │   ├── index.html              # Product listing + hero
+│   ├── about.html
+│   ├── faq.html
 │   ├── login.html              # Login + forgot-password (toggled via URL params)
 │   ├── signup.html
 │   ├── cart.html
@@ -69,12 +72,13 @@ spiral_sounds_v2/
 │       │   └── productService.js
 │       └── ui/
 │           ├── accountUI.js
-│           ├── authUI.js
+│           ├── authUI.js       # checkAuth, showHideMenuItems, initAuth, initUserMenuDropdown
 │           ├── cart.js
 │           ├── loginUI.js
-│           ├── menu.js
+│           ├── menu.js         # Mobile menu toggle + renderMobileAuth (injects auth links)
 │           ├── ordersUI.js
-│           └── productUI.js
+│           ├── productUI.js
+│           └── spinner.js
 ├── routes/
 │   ├── auth.js
 │   ├── cart.js
