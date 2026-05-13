@@ -111,6 +111,45 @@ export const getOrder = async (req, res) => {
   }
 }
 
+export const getOrderHistory = async (req, res) => {
+    const userId = req.session.userId;
+
+    try {
+        const result = await pool.query(
+            `SELECT
+                o.id,
+                o.order_number,
+                o.total_price,
+                o.status,
+                o.created_at,
+                o.customer_name,
+                o.shipping_city,
+                o.shipping_country,
+                json_agg(
+                    json_build_object(
+                        'title',    p.title,
+                        'artist',   p.artist,
+                        'image',    p.image,
+                        'quantity', oi.quantity,
+                        'price',    p.price
+                    ) ORDER BY p.title
+                ) AS items
+             FROM orders o
+             JOIN order_items oi ON oi.order_id = o.id
+             JOIN products p     ON p.id = oi.product_id
+             WHERE o.user_id = $1
+             GROUP BY o.id
+             ORDER BY o.created_at DESC`,
+            [userId]
+        );
+
+        res.json(result.rows);
+    } catch (err) {
+        console.error('getOrderHistory error:', err);
+        res.status(500).json({ error: 'Failed to load order history' });
+    }
+};
+
 export const updateOrderPaymentStatus = async (order, status) => {
     try {
         await pool.query('UPDATE orders SET status = $1 WHERE id = $2', [status, order])

@@ -24,7 +24,8 @@ app.use(cors({
   credentials: true
 }));
 
-app.use(express.static("public"));
+const staticDir = process.env.NODE_ENV === 'production' ? 'public/dist' : 'public'
+app.use(express.static(staticDir));
 
 app.use((req, res, next) => {
   if (req.originalUrl === "/api/stripe/webhook") {

@@ -5,6 +5,7 @@ export function addBtnListeners() {
   document.querySelectorAll('.add-btn').forEach(button => {
     button.addEventListener('click', async (event) => {
       const albumId = event.currentTarget.dataset.id
+      const albumTitle = event.currentTarget.closest('article')?.querySelector('h2')?.textContent || 'Item'
 
       try {
         const res = await fetch(API_URL + '/api/cart/add', {
@@ -19,6 +20,7 @@ export function addBtnListeners() {
         }
 
         await updateCartIcon()
+        showToast(`"${albumTitle}" added to cart`)
       } catch (err) {
         console.error('Error adding to cart:', err)
       }
@@ -28,14 +30,27 @@ export function addBtnListeners() {
 
 export async function updateCartIcon() {
   try {
-    const res = await fetch(API_URL + '/api/cart/cart-count', { credentials: 'include'})
+    const res = await fetch(API_URL + '/api/cart/cart-count', { credentials: 'include' })
     const obj = await res.json()
     const totalItems = obj.totalItems
 
-    document.getElementById('cart-banner').innerHTML =
-      totalItems > 0
-        ? `<a href="/cart.html"><img src="images/cart.png" alt="cart">${totalItems}</a>`
-        : ''
+    const cartBanner = document.getElementById('cart-banner')
+    if (!cartBanner) return
+
+    if (totalItems > 0) {
+      cartBanner.innerHTML = `
+        <a href="/cart.html" aria-label="Cart, ${totalItems} item${totalItems !== 1 ? 's' : ''}">
+          <img src="images/cart.png" alt="">
+          <span class="cart-count">${totalItems}</span>
+        </a>
+      `
+      cartBanner.classList.remove('pulse')
+      void cartBanner.offsetWidth
+      cartBanner.classList.add('pulse')
+      setTimeout(() => cartBanner.classList.remove('pulse'), 500)
+    } else {
+      cartBanner.innerHTML = ''
+    }
   } catch (err) {
     console.error('Error updating cart icon:', err)
   }
@@ -43,7 +58,7 @@ export async function updateCartIcon() {
 
 export async function loadCart(dom) {
   const { checkoutBtn, userMessage, cartList, cartTotal } = dom;
-  const container = document.querySelector("#cart-list")
+  const container = document.querySelector('#cart-list')
   let spinner;
   try {
     spinner = createSpinner(container)
@@ -62,7 +77,7 @@ async function fetchCartItems({ userMessage, checkoutBtn }) {
   const res = await fetch(API_URL + '/api/cart/', { credentials: 'include' })
 
   if (!res.ok) {
-    window.location.href="/"
+    window.location.href = '/'
     checkoutBtn.disabled = true
     checkoutBtn.classList.add('disabled')
     userMessage.innerHTML = 'Please <a href="login.html">log in</a>.'
@@ -84,10 +99,10 @@ function renderCartItems(items, cartList) {
 
     li.innerHTML = `
       <div>
-        <strong>${item.title}: </strong>
-        <button data-id="${item.cartitemid}" class="remove-btn">🗑️</button>
+        <strong>${item.title}</strong>
+        <span>× ${item.quantity} = $${itemTotal.toFixed(2)}</span>
       </div>
-      <span>× ${item.quantity} = $${itemTotal.toFixed(2)}</span>
+      <button data-id="${item.cartitemid}" class="remove-btn" aria-label="Remove ${item.title}">🗑</button>
     `
 
     cartList.appendChild(li)
@@ -96,7 +111,7 @@ function renderCartItems(items, cartList) {
 
 function updateCartTotal(items, cartTotal, checkoutBtn) {
   const total = items.reduce((sum, item) => sum + item.price * item.quantity, 0)
-  cartTotal.innerHTML = `Total: $${total.toFixed(2)}`
+  cartTotal.innerHTML = `$${total.toFixed(2)}`
 
   if (total <= 0) {
     checkoutBtn.disabled = true
@@ -130,9 +145,25 @@ export async function removeAll(dom) {
 
     if (res.status === 204) {
       await loadCart(dom)
+    } else {
       console.error('Error clearing cart:', await res.text())
     }
   } catch (err) {
     console.error('Error clearing cart:', err)
   }
+}
+
+// ===== Toast =====
+
+export function showToast(message) {
+  const container = document.getElementById('toast-container')
+  if (!container) return
+
+  const toast = document.createElement('div')
+  toast.className = 'toast'
+  toast.setAttribute('role', 'status')
+  toast.textContent = message
+  container.appendChild(toast)
+
+  setTimeout(() => toast.remove(), 3100)
 }

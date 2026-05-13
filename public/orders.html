@@ -11,7 +11,7 @@
   <link href="https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@400,500,600,700,800&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="icon" type="image/png" href="https://i.imgur.com/p24IMXy.png">
-  <title>Your Basket — Spiral Sounds</title>
+  <title>Order History — Spiral Sounds</title>
 </head>
 
 <body>
@@ -35,7 +35,7 @@
             <svg class="chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
           </button>
           <div class="user-menu-dropdown" id="user-menu-dropdown" role="menu">
-            <a href="/orders.html" class="user-menu-item" role="menuitem">
+            <a href="/orders.html" class="user-menu-item active" role="menuitem" aria-current="page">
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/></svg>
               Order History
             </a>
@@ -61,27 +61,14 @@
     </div>
   </div>
 
-  <!-- Mobile overlay -->
   <div class="menu-overlay" id="menu-overlay" aria-hidden="true"></div>
 
-  <!-- ===== Cart layout ===== -->
-  <main class="cart-main">
-    <h2>Your Basket</h2>
-
-    <!-- Line items -->
-    <div class="cart-items-col">
-      <ul id="cart-list" aria-label="Cart items"></ul>
+  <main class="page-main">
+    <div class="page-header">
+      <h1>Order History</h1>
+      <p class="page-subtitle">Every order placed on your account</p>
     </div>
-
-    <!-- Order summary -->
-    <aside class="cart-summary" aria-label="Order summary">
-      <h3>Order Summary</h3>
-      <p id="cart-total"></p>
-      <p id="user-message"></p>
-      <button class="main-btn" id="checkout-btn" style="padding:1rem; font-size:1rem; border-radius:12px; box-shadow: 0 4px 16px rgba(232,54,93,0.35);">
-        Proceed to Checkout
-      </button>
-    </aside>
+    <div id="orders-container"></div>
   </main>
 
   <footer>
@@ -89,7 +76,7 @@
   </footer>
 
   <script src="js/ui/menu.js" type="module"></script>
-  <script src="js/ui/cart.js" type="module"></script>
+  <script src="js/ui/ordersUI.js" type="module"></script>
 </body>
 
 </html>
