@@ -1,27 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://srw-spiral-sounds.netlify.app/</loc>
+    <loc>https://spiralsounds.shop/</loc>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://srw-spiral-sounds.netlify.app/about.html</loc>
+    <loc>https://spiralsounds.shop/about.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://srw-spiral-sounds.netlify.app/faq.html</loc>
+    <loc>https://spiralsounds.shop/faq.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://srw-spiral-sounds.netlify.app/login.html</loc>
+    <loc>https://spiralsounds.shop/login.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.3</priority>
   </url>
   <url>
-    <loc>https://srw-spiral-sounds.netlify.app/signup.html</loc>
+    <loc>https://spiralsounds.shop/signup.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.3</priority>
   </url>

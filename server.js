@@ -20,7 +20,7 @@ const secret = process.env.SPIRAL_SECRET_SESSION || crypto.randomBytes(64).toStr
 
 //Middleware START
 app.use(cors({
-  origin: process.env.NODE_ENV === "production" ? ['https://srw-spiral-sounds.netlify.app'] :  true, 
+  origin: process.env.NODE_ENV === "production" ? ['https://spiralsounds.shop'] :  true, 
   credentials: true
 }));
 

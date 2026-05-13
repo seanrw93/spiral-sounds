@@ -2,7 +2,7 @@
 
 Spiral Sounds is a fullstack web application for browsing and purchasing vinyl records. Users can explore albums, filter by genre or keyword, manage a shopping cart, checkout via Stripe, and manage their account — including a full token-based password reset flow.
 
-**Live site**: [srw-spiral-sounds.netlify.app](https://srw-spiral-sounds.netlify.app/)
+**Live site**: [srw-spiral-sounds.netlify.app](https://spiralsounds.shop/)
 
 ---
 

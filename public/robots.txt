@@ -5,4 +5,4 @@ Disallow: /orders.html
 Disallow: /account.html
 Disallow: /reset-password.html
 
-Sitemap: https://srw-spiral-sounds.netlify.app/sitemap.xml
+Sitemap: https://spiralsounds.shop/sitemap.xml
