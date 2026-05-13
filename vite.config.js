@@ -18,6 +18,8 @@ export default defineConfig({
         orders:        resolve(__dirname, 'public/orders.html'),
         account:       resolve(__dirname, 'public/account.html'),
         resetPassword: resolve(__dirname, 'public/reset-password.html'),
+        about:         resolve(__dirname, 'public/about.html'),
+        faq:           resolve(__dirname, 'public/faq.html'),
       }
     }
   },

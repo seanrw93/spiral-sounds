@@ -12,11 +12,12 @@ export async function getProducts(filters = {}) {
 
   try {
     const res = await fetch(`${API_URL}/api/products?${queryParams}`, { credentials: 'include' });
+    if (!res.ok) return null
     const data = await res.json();
-    return Array.isArray(data) ? data : []
+    return Array.isArray(data) ? data : null
   } catch (err) {
     console.error('Error loading products:', err);
-    return []
+    return null
   }
 }
 

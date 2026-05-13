@@ -11,12 +11,11 @@
   <link href="https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@400,500,600,700,800&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="icon" type="image/png" href="https://i.imgur.com/p24IMXy.png">
-  <title>Your Cart — Spiral Sounds</title>
-  <meta name="description" content="Review your cart and check out securely with Stripe at Spiral Sounds.">
-  <meta property="og:title" content="Your Cart — Spiral Sounds">
-  <meta property="og:description" content="Review your cart and check out securely with Stripe at Spiral Sounds.">
+  <title>About — Spiral Sounds</title>
+  <meta name="description" content="Spiral Sounds is a Melbourne-based vinyl record store. Learn about who we are and why we do what we do.">
+  <meta property="og:title" content="About — Spiral Sounds">
+  <meta property="og:description" content="A Melbourne-based vinyl record store, carefully curating records for audiophiles and collectors since 2019.">
   <meta property="og:image" content="https://i.imgur.com/p24IMXy.png">
-  <meta name="robots" content="noindex">
 </head>
 
 <body>
@@ -30,7 +29,7 @@
 
     <nav class="nav-links" aria-label="Site navigation">
       <a href="/" class="nav-link">Shop</a>
-      <a href="/about.html" class="nav-link">About</a>
+      <a href="/about.html" class="nav-link" aria-current="page">About</a>
       <a href="/faq.html" class="nav-link">FAQ</a>
     </nav>
 
@@ -72,7 +71,6 @@
     </div>
   </div>
 
-  <!-- Mobile menu -->
   <div class="mobile-menu" id="mobile-menu" aria-hidden="true">
     <nav class="mobile-nav-links" aria-label="Site navigation">
       <a href="/" class="mobile-nav-link">Shop</a>
@@ -83,24 +81,84 @@
     <div class="mobile-auth-links" id="mobile-auth-links"></div>
   </div>
 
-  <!-- ===== Cart layout ===== -->
-  <main class="cart-main">
-    <h2>Your Basket</h2>
-
-    <!-- Line items -->
-    <div class="cart-items-col">
-      <ul id="cart-list" aria-label="Cart items"></ul>
+  <!-- ===== About content ===== -->
+  <main>
+    <div class="about-hero">
+      <div class="about-hero-inner">
+        <p class="about-eyebrow">Our story</p>
+        <h1>We believe every record tells a story.</h1>
+        <p class="about-lead">Spiral Sounds is a Melbourne-based vinyl record store built for people who listen with intention. We source, curate, and ship records that are worth owning — not just collecting.</p>
+      </div>
     </div>
 
-    <!-- Order summary -->
-    <aside class="cart-summary" aria-label="Order summary">
-      <h3>Order Summary</h3>
-      <p id="cart-total"></p>
-      <p id="user-message"></p>
-      <button class="main-btn" id="checkout-btn" style="padding:1rem; font-size:1rem; border-radius:12px; box-shadow: 0 4px 16px rgba(232,54,93,0.35);">
-        Proceed to Checkout
-      </button>
-    </aside>
+    <div class="about-body">
+
+      <section class="about-section about-section--split">
+        <div class="about-section-text">
+          <h2>Where it started</h2>
+          <p>It started in a spare bedroom with a turntable, a crate of second-hand jazz records, and a stubborn belief that digital streaming would never replace the ritual of putting on a record.</p>
+          <p>We opened our doors in 2019 with a handpicked catalogue of 200 records. Today we carry thousands — but we still approach every new addition the same way: would we want this in our own collection?</p>
+        </div>
+        <div class="about-section-stat-group">
+          <div class="about-stat">
+            <span class="about-stat-number">5,000+</span>
+            <span class="about-stat-label">Records in stock</span>
+          </div>
+          <div class="about-stat">
+            <span class="about-stat-number">12k+</span>
+            <span class="about-stat-label">Orders shipped</span>
+          </div>
+          <div class="about-stat">
+            <span class="about-stat-number">Since 2019</span>
+            <span class="about-stat-label">Melbourne, AU</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="about-section">
+        <h2>What we care about</h2>
+        <div class="about-values">
+          <div class="about-value-card">
+            <div class="about-value-icon" aria-hidden="true">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+            </div>
+            <h3>Curation over quantity</h3>
+            <p>We don't list everything we can find. We list what we'd genuinely recommend to a friend who trusts our taste.</p>
+          </div>
+          <div class="about-value-card">
+            <div class="about-value-icon" aria-hidden="true">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+            </div>
+            <h3>Honest condition grading</h3>
+            <p>We grade every record ourselves. If it's not near-mint we say so — and price it accordingly. No surprises.</p>
+          </div>
+          <div class="about-value-card">
+            <div class="about-value-icon" aria-hidden="true">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13" rx="1"/><path d="M16 8h4l3 5v3h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+            </div>
+            <h3>Careful packaging</h3>
+            <p>Every order is packed with record mailers and corner protectors. We've shipped tens of thousands of records without a single cracked sleeve complaint.</p>
+          </div>
+          <div class="about-value-card">
+            <div class="about-value-icon" aria-hidden="true">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            </div>
+            <h3>Built on recommendations</h3>
+            <p>The majority of our new customers come from word of mouth. We'd rather earn your trust than advertise our way into it.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="about-section about-section--cta">
+        <h2>Come find something you'll love.</h2>
+        <p>Browse the full collection or get in touch — we're always happy to help you track down something specific.</p>
+        <div class="about-cta-btns">
+          <a href="/" class="hero-cta">Browse Records</a>
+          <a href="mailto:hello@spiralsounds.shop" class="about-cta-secondary">Get in touch</a>
+        </div>
+      </section>
+
+    </div>
   </main>
 
   <footer>
@@ -142,7 +200,7 @@
   </footer>
 
   <script src="js/ui/menu.js" type="module"></script>
-  <script src="js/ui/cart.js" type="module"></script>
+  <script type="module">import { initAuth } from './js/ui/authUI.js'; initAuth()</script>
 </body>
 
 </html>
